@@ -1,7 +1,7 @@
 <template>
   <div class="drawer-title">
     <div class="left-btn">
-      <a-icon type="left" @click="closeDrawer"></a-icon>
+      <a-icon type="left" @click="close"></a-icon>
     </div>
     <div class="title">{{ title }}</div>
     <div class="right-btn">
@@ -33,8 +33,8 @@ export default {
     return {};
   },
   methods: {
-    closeDrawer() {
-      this.$emit('closeDrawer', 'hhhh');
+    close() {
+      this.$emit('close', 'hhhh');
     },
     handleCommit() {
       this.$emit('commit');

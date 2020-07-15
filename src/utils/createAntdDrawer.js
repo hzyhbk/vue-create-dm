@@ -26,24 +26,25 @@ export function createAntdDrawer(options) {
           afterClose && (await afterClose(payload));
         }, 400);
       };
+      const createSlot = (options, slot = 'default') => {
+        return createElement(options.template, {
+          ...options,
+          on: {
+            ...options.on,
+            close: handleClose,
+          },
+          slot,
+        });
+      };
       const children = [];
       // 如果传了内容
       if (content && content.template) {
-        children.push(createElement(content.template, content));
+        children.push(createSlot(content));
       }
       // 如果title传了组件，默认用这个
       if (title && title.template) {
         // 如果是插槽的话，就要加slot
-        children.push(
-          createElement(title.template, {
-            ...title,
-            on: {
-              ...title.on,
-              closeDrawer: handleClose,
-            },
-            slot: 'title',
-          })
-        );
+        children.push(createSlot(title, 'title'));
         drawerProps.title && delete drawerProps.title;
       }
       return createElement(
