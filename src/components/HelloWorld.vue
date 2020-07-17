@@ -92,6 +92,12 @@ export default {
   props: {
     msg: String,
   },
+  mounted() {
+    console.log('子组件mounted了');
+  },
+  destroyed() {
+    console.log('子组件destroyed了');
+  },
 };
 </script>
 
