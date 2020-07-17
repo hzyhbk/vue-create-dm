@@ -1,16 +1,22 @@
 <template>
   <div id="app">
     <br />
-    <a-button type="primary" @click="createModal">创建弹框</a-button>
+    <a-button type="primary" @click="createModal">
+      创建antd弹框
+    </a-button>
     <br />
     <br />
     <div>
       <div style="text-align:left;">数据项：{{ cancelReson }}</div>
-      <a-button type="primary" @click="createDataModal">创建数据弹框</a-button>
+      <a-button type="primary" @click="createDataModal">
+        创建antd数据弹框
+      </a-button>
     </div>
     <br />
     <br />
-    <a-button type="primary" @click="createDrawer">创建抽屉</a-button>
+    <a-button type="primary" @click="createDrawer">
+      创建antd抽屉
+    </a-button>
     <br />
     <br />
     <a-button type="primary" @click="createViewUIDrawer">
@@ -31,10 +37,12 @@
 import HelloWorld from './components/HelloWorld.vue';
 import Title from './components/Title';
 import Footer from './components/Footer';
-import { createAntdDrawer } from './utils/createAntdDrawer';
-import { createAntdModal } from './utils/createAntdModal';
-import { createViewDrawer } from './utils/createViewDrawer';
-import { createViewModal } from './utils/createViewModal';
+import {
+  createAntdDrawer,
+  createAntdModal,
+  createViewDrawer,
+  createViewModal,
+} from './utils/index';
 import { Input } from 'ant-design-vue';
 export default {
   name: 'App',

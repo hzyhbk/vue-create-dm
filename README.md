@@ -1,6 +1,8 @@
-# 通过函数创建 ant-design-vue 的 drawer 和 modal
+# 通过函数创建 ant-design-vue 或者 view-design 的 drawer 和 modal
 
-## createAntdDrawer
+![image](https://user-images.githubusercontent.com/42671099/87777895-e7386280-c85c-11ea-8dbf-82b115604073.png)
+
+## createAntdDrawer、createViewDrawer
 
 会往 title 和 content 子组件内传入一个名为 close 的函数，在子组件内使用 `this.$emit('close', payload)` 触发关闭行为
 
@@ -34,7 +36,7 @@ createAntdDrawer({
 });
 ```
 
-## createAntdModal
+## createAntdModal、createViewModal
 
 会往 title、content 和 foter 子组件内传入 close 和 ok 函数和 confirmLoading props，在子组件内使用 `this.$emit('close', payload)` 触发关闭动作， 使用 `this.$emit('ok', payload)` 触发 onOk 回调。子组件内可以使用confirmLoading来管理确定按钮的loading 状态
 
