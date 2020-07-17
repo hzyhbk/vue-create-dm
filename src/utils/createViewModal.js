@@ -1,6 +1,9 @@
 import { Modal } from 'view-design';
 import Vue from 'vue';
 const MODAL_REF = '__view_modal_ref__';
+import { createModalSlot } from './createCreateSlot';
+import { getSlotPayload } from './getSlotPayload';
+
 /**
  * modalProps 就是 antd 的 modal 组件的 props
  * title、content、footer 都是对象，其中 template 属性代表组件，其他属性同 vue 的原生属性 https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1
@@ -15,6 +18,7 @@ export function createViewModal(options) {
     beforeClose,
     afterClose,
     onOk,
+    payloadSlot,
   } = options;
   const el = document.createElement('div');
   document.body.appendChild(el);
@@ -23,6 +27,7 @@ export function createViewModal(options) {
     data: {
       visible: true,
       confirmLoading: false,
+      slotVnMap: {},
     },
     render(createElement) {
       const self = this;
@@ -34,27 +39,39 @@ export function createViewModal(options) {
           afterClose && (await afterClose(payload));
         }, 400);
       };
+      // 直接关闭不传slotPayload，通过ok关闭可以取到
       const handleOk = async (payload) => {
+        const slotPayload = await getSlotPayload(
+          self.$data.slotVnMap,
+          payloadSlot
+        );
         self.$data.confirmLoading = true;
-        await onOk(payload);
+        await onOk({ payload, slotPayload });
         self.$data.confirmLoading = false;
-        await handleClose(payload);
+        await handleClose({ payload, slotPayload });
       };
-      const createSlot = (options, slot = 'default') => {
-        return createElement(options.template, {
-          ...options,
-          props: {
-            ...options.props,
-            confirmLoading: self.$data.confirmLoading,
-          },
-          on: {
-            ...options.on,
-            close: handleClose,
-            ok: handleOk,
-          },
-          slot,
-        });
-      };
+      const createSlot = createModalSlot(
+        createElement,
+        self.$data.slotVnMap,
+        self.$data.confirmLoading,
+        handleClose,
+        handleOk
+      );
+      // const createSlot = (options, slot = 'default') => {
+      //   return createElement(options.template, {
+      //     ...options,
+      //     props: {
+      //       ...options.props,
+      //       confirmLoading: self.$data.confirmLoading,
+      //     },
+      //     on: {
+      //       ...options.on,
+      //       close: handleClose,
+      //       ok: handleOk,
+      //     },
+      //     slot,
+      //   });
+      // };
       const children = [];
       // 如果传了内容
       if (content && content.template) {

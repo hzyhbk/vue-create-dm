@@ -92,6 +92,11 @@ export default {
   props: {
     msg: String,
   },
+  methods: {
+    async providePayload() {
+      return 'payload_from_son';
+    },
+  },
   mounted() {
     console.log('子组件mounted了');
   },
