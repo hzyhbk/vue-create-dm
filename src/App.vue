@@ -50,8 +50,8 @@ export default {
     createDrawer() {
       createAntdDrawer({
         drawerProps: {
-          mask: false,
-          maskClosable: false,
+          // mask: false,
+          // maskClosable: false,
           title: 'abcs',
           closable: false,
           width: '500px',
@@ -190,8 +190,8 @@ export default {
     createViewUIDrawer() {
       createViewDrawer({
         drawerProps: {
-          mask: false,
-          maskClosable: false,
+          // mask: false,
+          // maskClosable: false,
           title: 'abcs',
           closable: false,
           width: '500px',

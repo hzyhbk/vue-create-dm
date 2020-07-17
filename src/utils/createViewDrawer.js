@@ -55,7 +55,7 @@ export function createViewDrawer(options) {
           },
           ref: DRAWER_REF,
           on: {
-            close: handleClose,
+            'on-close': handleClose,
           },
         },
         children
