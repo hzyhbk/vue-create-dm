@@ -1,5 +1,7 @@
 # vue-create-dm
 
+[![vue-create-dm](https://img.shields.io/badge/dynamic/json?color=007ec6&label=npm&query=$['dist-tags'].latest&url=https://registry.npmjs.org/vue-create-dm)](https://www.npmjs.com/package/vue-create-dm)
+
 通过函数创建 ant-design-vue 或者 view-design 的 Drawer 和 Modal
 
 ## 功能亮点
