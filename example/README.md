@@ -1,6 +1,4 @@
-# vue-create-dm
-
-通过函数创建 ant-design-vue 或者 view-design 的 Drawer 和 Modal
+# 通过函数创建 ant-design-vue 或者 view-design 的 drawer 和 modal
 
 ## 功能亮点
 - [x] 通过函数来创建 Modal 或者 Drawer 组件
@@ -8,55 +6,15 @@
 - [x] 支持传入 title、content、footer 插槽
 - [x] 支持 Modal、Drawer 与父应用通信
 
-## 安装
-```bash
-yarn add vue-create-dm
-```
+![image](https://user-images.githubusercontent.com/42671099/87777895-e7386280-c85c-11ea-8dbf-82b115604073.png)
 
-## 注册
-### 1. 统一注册
-```js
-import VueCreateDM from 'vue-create-dm';
-import { Modal as antdModal, Drawer as antdDrawer } from 'ant-design-vue';
-import { Modal as viewModal, Drawer as viewDrawer } from 'view-design';
-
-Vue.use(VueCreateDM, {
-  antdModal,
-  antdDrawer,
-  viewModal,
-  viewDrawer
-});
-```
-### 2. 单个注册
-```js
-import { createAntdDrawer } from 'vue-create-dm';
-import { Drawer } from 'ant-design-vue';
-
-Vue.use(createAntdDrawer, Drawer);
-```
-
-## 组件中使用
-```js
-this.$createAntdModal({});
-
-this.$createAntdDrawer({});
-
-this.$createViewDrawer({});
-
-this.$createViewDrawer({});
-```
-
-## 例子
-见 example 文件夹
-
-## API 介绍
-### createAntdDrawer、createViewDrawer
+## createAntdDrawer、createViewDrawer
 
 * 会往 title 和 content 子组件内传入一个名为 close 的函数，在子组件内使用 `this.$emit('close', payload)` 触发关闭行为。
 * 如果传入 **payloadSlot** 参数，并且相应的子组件存在 `providePayload` 方法，在抽屉关闭时，会先调用此函数获取返回值，然后作为 `beforeClose` 和 `afterClose` 方法的参数传入
 
 ```js
-this.$createAntdDrawer({
+createAntdDrawer({
   // antd drawer 的所有props
   drawerProps: {},
   /*
@@ -91,13 +49,13 @@ this.$createAntdDrawer({
 });
 ```
 
-### createAntdModal、createViewModal
+## createAntdModal、createViewModal
 
 * 会往 title、content 和 foter 子组件内传入 close 和 ok 函数和 confirmLoading props，在子组件内使用 `this.$emit('close', payload)` 触发关闭动作， 使用 `this.$emit('ok', payload)` 触发 onOk 回调。子组件内可以使用 confirmLoading 来管理确定按钮的 loading 状态
 * 如果传入 **payloadSlot** 参数，并且相应的子组件如果存在 `providePayload` 方法，在点击确定按钮时，会先调用此函数获取返回值，然后作为 `onOk` 方法的一个参数传入
 
 ```js
-this.$createAntdModal({
+createAntdModal({
   // antd modal 的所有props
   modalProps: {},
   /*

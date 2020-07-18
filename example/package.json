@@ -1,29 +1,16 @@
 {
-  "name": "vue-create-dm",
-  "version": "0.0.1",
-  "author": "hzyhbk",
-  "main": "./dist/vue-create-dm.umd.min.js",
-  "files": [
-    "src",
-    "dist/*.js"
-  ],
+  "name": "antv-create",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "build": "vue-cli-service build --target lib --inline-vue --name vue-create-dm ./src/index.js"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "keywords": [
-    "ant",
-    "design",
-    "antd",
-    "vue",
-    "vueComponent",
-    "component",
-    "components",
-    "frontend",
-    "iview",
-    "viewui"
-  ],
   "dependencies": {
+    "ant-design-vue": "^1.6.3",
     "core-js": "^3.6.5",
+    "view-design": "^4.3.2",
     "vue": "^2.6.11"
   },
   "devDependencies": {
