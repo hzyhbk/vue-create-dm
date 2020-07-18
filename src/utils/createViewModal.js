@@ -1,6 +1,5 @@
 import { Modal } from 'view-design';
 import Vue from 'vue';
-const MODAL_REF = '__view_modal_ref__';
 import { createModalSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 
@@ -35,7 +34,7 @@ export function createViewModal(options) {
         beforeClose && (await beforeClose(payload));
         self.$data.visible = false;
         setTimeout(async () => {
-          document.body.removeChild(self.$refs[MODAL_REF].$el);
+          self.$destroy();
           afterClose && (await afterClose(payload));
         }, 400);
       };
@@ -57,21 +56,6 @@ export function createViewModal(options) {
         handleClose,
         handleOk
       );
-      // const createSlot = (options, slot = 'default') => {
-      //   return createElement(options.template, {
-      //     ...options,
-      //     props: {
-      //       ...options.props,
-      //       confirmLoading: self.$data.confirmLoading,
-      //     },
-      //     on: {
-      //       ...options.on,
-      //       close: handleClose,
-      //       ok: handleOk,
-      //     },
-      //     slot,
-      //   });
-      // };
       const children = [];
       // 如果传了内容
       if (content && content.template) {
@@ -94,7 +78,6 @@ export function createViewModal(options) {
             ...modalProps,
             value: self.$data.visible,
           },
-          ref: MODAL_REF,
           on: {
             cancel: handleClose,
             ok: handleOk,

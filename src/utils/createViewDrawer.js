@@ -1,6 +1,5 @@
 import { Drawer } from 'view-design';
 import Vue from 'vue';
-const DRAWER_REF = '__view_drawer_ref__';
 import { createDrawerSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 
@@ -36,7 +35,7 @@ export function createViewDrawer(options) {
         beforeClose && (await beforeClose({ payload, slotPayload }));
         self.$data.visible = false;
         setTimeout(async () => {
-          document.body.removeChild(self.$refs[DRAWER_REF].$el);
+          self.$destroy();
           afterClose && (await afterClose({ payload, slotPayload }));
         }, 400);
       };
@@ -63,7 +62,6 @@ export function createViewDrawer(options) {
             ...drawerProps,
             value: self.$data.visible,
           },
-          ref: DRAWER_REF,
           on: {
             'on-close': handleClose,
           },

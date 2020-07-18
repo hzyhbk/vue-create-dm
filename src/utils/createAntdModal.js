@@ -1,6 +1,5 @@
 import { Modal } from 'ant-design-vue';
 import Vue from 'vue';
-const MODAL_REF = '__antd_modal_ref__';
 import { createModalSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 
@@ -35,7 +34,7 @@ export function createAntdModal(options) {
         beforeClose && (await beforeClose(payload));
         self.$data.visible = false;
         setTimeout(async () => {
-          document.body.removeChild(self.$refs[MODAL_REF].$el.parentElement);
+          self.$destroy();
           afterClose && (await afterClose(payload));
         }, 400);
       };
@@ -79,7 +78,6 @@ export function createAntdModal(options) {
             ...modalProps,
             visible: self.$data.visible,
           },
-          ref: MODAL_REF,
           on: {
             cancel: handleClose,
             ok: handleOk,

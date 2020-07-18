@@ -1,6 +1,5 @@
 import { Drawer } from 'ant-design-vue';
 import Vue from 'vue';
-const DRAWER_REF = '__antd_drawer_ref__';
 import { createDrawerSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 
@@ -37,7 +36,7 @@ export function createAntdDrawer(options) {
         self.$data.visible = false;
         // 因为antd关闭动画是 0.3s 所以稍微晚点再销毁组件
         setTimeout(async () => {
-          document.body.removeChild(self.$refs[DRAWER_REF].$el.parentElement);
+          self.$destroy();
           afterClose && (await afterClose({ payload, slotPayload }));
         }, 400);
       };
@@ -64,7 +63,6 @@ export function createAntdDrawer(options) {
             ...drawerProps,
             visible: self.$data.visible,
           },
-          ref: DRAWER_REF,
           on: {
             close: handleClose,
           },
