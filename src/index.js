@@ -14,10 +14,10 @@ export default {
       createAntdDrawer.install(Vue, antdDrawer);
     }
     if (viewModal) {
-      createViewModal.install(Vue, antdModal);
+      createViewModal.install(Vue, viewModal);
     }
     if (viewDrawer) {
-      createViewDrawer.install(Vue, antdDrawer);
+      createViewDrawer.install(Vue, viewDrawer);
     }
   },
 };

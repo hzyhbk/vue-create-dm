@@ -57,12 +57,6 @@
 import HelloWorld from './components/HelloWorld.vue';
 import Title from './components/Title';
 import Footer from './components/Footer';
-import {
-  createAntdDrawer,
-  createAntdModal,
-  createViewDrawer,
-  createViewModal,
-} from './utils/index';
 import { Input } from 'ant-design-vue';
 export default {
   name: 'App',
@@ -76,7 +70,7 @@ export default {
       console.log(11, value);
     },
     createDrawer() {
-      createAntdDrawer({
+      this.$createAntdDrawer({
         drawerProps: {
           // mask: false,
           // maskClosable: false,
@@ -107,7 +101,7 @@ export default {
     createDataModal() {
       let self = this;
       console.log(123123, this.cancelReson);
-      createAntdModal({
+      this.$createAntdModal({
         modalProps: {
           title: '请输入取消原因',
           okText: '确认取消',
@@ -172,7 +166,7 @@ export default {
       // });
     },
     createModal() {
-      createAntdModal({
+      this.$createAntdModal({
         modalProps: {
           // mask: false,
           // maskClosable: false,
@@ -216,7 +210,7 @@ export default {
       });
     },
     createModalDataFromSon() {
-      createAntdModal({
+      this.$createAntdModal({
         modalProps: {
           // mask: false,
           // maskClosable: false,
@@ -262,7 +256,7 @@ export default {
       });
     },
     createViewUIDrawer() {
-      createViewDrawer({
+      this.$createViewDrawer({
         drawerProps: {
           // mask: false,
           // maskClosable: false,
@@ -291,7 +285,7 @@ export default {
       });
     },
     createViewUIModal() {
-      createViewModal({
+      this.$createViewModal({
         modalProps: {
           // mask: false,
           // maskClosable: false,
@@ -335,7 +329,7 @@ export default {
       });
     },
     createViewUIModalDataFromSon() {
-      createViewModal({
+      this.$createViewModal({
         modalProps: {
           // mask: false,
           // maskClosable: false,
@@ -381,7 +375,7 @@ export default {
       });
     },
     createDrawerDataFromSon() {
-      createAntdDrawer({
+      this.$createAntdDrawer({
         drawerProps: {
           mask: false,
           maskClosable: false,
@@ -411,7 +405,7 @@ export default {
       });
     },
     createViewDrawerDataFromSon() {
-      createViewDrawer({
+      this.$createViewDrawer({
         drawerProps: {
           // mask: false,
           // maskClosable: false,
