@@ -45,7 +45,7 @@ this.$createAntdDrawer({});
 
 this.$createViewDrawer({});
 
-this.$createViewDrawer({});
+this.$createViewModal({});
 ```
 
 ## 例子
