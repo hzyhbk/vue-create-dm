@@ -1,6 +1,6 @@
 {
   "name": "vue-create-dm",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "hzyhbk",
   "main": "./dist/vue-create-dm.umd.min.js",
   "files": [
@@ -47,7 +47,11 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "off",
+      "no-empty": "off",
+      "no-undef": "off"
+    }
   },
   "browserslist": [
     "> 1%",

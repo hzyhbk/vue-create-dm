@@ -8120,10 +8120,8 @@ vm-browserify@^1.0.1:
   resolved "https://registry.npm.taobao.org/vm-browserify/download/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
 
-vue-create-dm@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.npmjs.org/vue-create-dm/-/vue-create-dm-0.0.4.tgz#7c54668860ecd6b167433f1bbebb53bfbcfa89b8"
-  integrity sha512-rHRUemhgA8vh48OPoOFdfYVgyBkb4YyFKJAoa+QonZDqjSRVvnp/6DE6y7AsBgxEnN2My95hCDKW135rqNk7kw==
+"vue-create-dm@file:.yalc/vue-create-dm":
+  version "0.0.5-5900cb77"
   dependencies:
     core-js "^3.6.5"
     vue "^2.6.11"

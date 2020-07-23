@@ -6,9 +6,16 @@ import { getSlotPayload } from './getSlotPayload';
  * title 和 content 都是对象，其中 template 属性代表组件，其他属性同 vue 的原生属性 https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1
  *
  */
-export function createAntdDrawer(
+export function createDrawer(
   Vue,
-  { component: Drawer, router, store },
+  {
+    component: Drawer,
+    titleSlotName = 'title',
+    visiblePropName = 'visible',
+    closeCbName = 'close',
+    router,
+    store,
+  },
   options
 ) {
   const {
@@ -39,6 +46,10 @@ export function createAntdDrawer(
         // 因为antd关闭动画是 0.3s 所以稍微晚点再销毁组件
         setTimeout(async () => {
           self.$destroy();
+          try {
+            document.body.removeChild(self.$el);
+          } catch (e) {}
+
           afterClose && (await afterClose({ payload, slotPayload }));
         }, 400);
       };
@@ -55,7 +66,7 @@ export function createAntdDrawer(
       // 如果title传了组件，默认用这个
       if (title && title.template) {
         // 如果是插槽的话，就要加slot
-        children.push(createSlot(title, 'title'));
+        children.push(createSlot(title, titleSlotName));
         drawerProps.title && delete drawerProps.title;
       }
       return createElement(
@@ -63,10 +74,10 @@ export function createAntdDrawer(
         {
           props: {
             ...drawerProps,
-            visible: self.$data.visible,
+            [visiblePropName]: self.$data.visible,
           },
           on: {
-            close: handleClose,
+            [closeCbName]: handleClose,
           },
         },
         children
@@ -78,7 +89,14 @@ export function createAntdDrawer(
   return vn;
 }
 
-createAntdDrawer.install = function(Vue, { component, router, store }) {
-  Vue.prototype.$createAntdDrawer = (options) =>
-    createAntdDrawer(Vue, { component, router, store }, options);
+createDrawer.install = function(
+  Vue,
+  { component, titleSlotName, visiblePropName, closeCbName, router, store }
+) {
+  Vue.prototype.$createDrawer = (options) =>
+    createDrawer(
+      Vue,
+      { component, titleSlotName, visiblePropName, closeCbName, router, store },
+      options
+    );
 };

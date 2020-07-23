@@ -15,7 +15,8 @@ import page1 from './views/page1/index.vue';
 import page2 from './views/page2/index.vue';
 import 'ant-design-vue/dist/antd.css';
 import 'view-design/dist/styles/iview.css';
-import { createViewModal } from './createViewModal';
+// import { createViewModal } from './createViewModal';
+// import { createDrawer } from './drawer';
 Vue.config.productionTip = false;
 Vue.use(Button);
 Vue.use(Icon);
@@ -38,19 +39,15 @@ const store = new Vuex.Store({
     },
   },
 });
-Vue.use(createViewModal, {
-  component: viewModal,
-  store,
-  router,
-});
 Vue.use(VueCreateDM, {
   antdModal,
   antdDrawer,
-  // viewModal,
+  viewModal,
   viewDrawer,
   store,
   router,
 });
+
 new Vue({
   render: (h) => h(App),
   store,
