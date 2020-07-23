@@ -65,11 +65,15 @@ export default {
       cancelReson: 'aa',
     };
   },
+  mounted() {
+    console.log(this.$store.state.count);
+  },
   methods: {
     onChange(value) {
       console.log(11, value);
     },
     createDrawer() {
+      console.log(this.$createAntdDrawer);
       this.$createAntdDrawer({
         drawerProps: {
           // mask: false,

@@ -6,7 +6,11 @@ import { getSlotPayload } from './getSlotPayload';
  * title、content、footer 都是对象，其中 template 属性代表组件，其他属性同 vue 的原生属性 https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1
  *
  */
-export function createAntdModal(Vue, Modal, options) {
+export function createAntdModal(
+  Vue,
+  { component: Modal, router, store },
+  options
+) {
   const {
     title,
     content,
@@ -84,11 +88,13 @@ export function createAntdModal(Vue, Modal, options) {
         children
       );
     },
+    router,
+    store,
   }).$mount(el);
   return vn;
 }
 
-createAntdModal.install = function(Vue, modelCpt) {
+createAntdModal.install = function(Vue, { component, router, store }) {
   Vue.prototype.$createAntdModal = (options) =>
-    createAntdModal(Vue, modelCpt, options);
+    createAntdModal(Vue, { component, router, store }, options);
 };

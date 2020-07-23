@@ -99,7 +99,7 @@ export default {
     },
   },
   mounted() {
-    console.log('子组件mounted了');
+    console.log('子组件mounted了', this.$store.state.count, this.$router);
   },
   destroyed() {
     console.log('子组件destroyed了');

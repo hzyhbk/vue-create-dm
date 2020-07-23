@@ -9,6 +9,7 @@
 - [x] Modal、Drawer 的内容子组件的 created、mounted 生命周期按照正常逻辑触发
 - [x] 支持传入 title、content、footer 插槽
 - [x] 支持 Modal、Drawer 与父应用通信
+- [x] 支持子组件获取 this.$store 和 this.$router
 
 ## 安装
 ```bash
@@ -21,12 +22,28 @@ yarn add vue-create-dm
 import VueCreateDM from 'vue-create-dm';
 import { Modal as antdModal, Drawer as antdDrawer } from 'ant-design-vue';
 import { Modal as viewModal, Drawer as viewDrawer } from 'view-design';
+import Vuex from 'vuex'
+import VueRouter from 'vue-router';
+// 如果要在子组件内获取 this.$store 和 this.$router
+// 请把 VueCreateDM 的注册放到 Vuex 和 VueRouter 实例生成之后
+// 并且传入这两个实例
+Vue.use(VueStore);
+const store = new Vuex.Store({
+  // ...
+});
+
+Vue.use(VueRouter);
+const router = new VueRouter({
+  // ...
+});
 
 Vue.use(VueCreateDM, {
   antdModal,
   antdDrawer,
   viewModal,
-  viewDrawer
+  viewDrawer,
+  store,
+  router,
 });
 ```
 ### 2. 单个注册
@@ -34,7 +51,11 @@ Vue.use(VueCreateDM, {
 import { createAntdDrawer } from 'vue-create-dm';
 import { Drawer } from 'ant-design-vue';
 
-Vue.use(createAntdDrawer, Drawer);
+Vue.use(createAntdDrawer, {
+  component: Drawer,
+  router, // 子组件需要用到 this.$router 就传
+  store // 子组件需要用到 this.$store 就传
+});
 ```
 
 ## 组件中使用

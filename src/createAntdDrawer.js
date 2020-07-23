@@ -6,7 +6,11 @@ import { getSlotPayload } from './getSlotPayload';
  * title 和 content 都是对象，其中 template 属性代表组件，其他属性同 vue 的原生属性 https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1
  *
  */
-export function createAntdDrawer(Vue, Drawer, options) {
+export function createAntdDrawer(
+  Vue,
+  { component: Drawer, router, store },
+  options
+) {
   const {
     title,
     content,
@@ -68,11 +72,13 @@ export function createAntdDrawer(Vue, Drawer, options) {
         children
       );
     },
+    router,
+    store,
   }).$mount(el);
   return vn;
 }
 
-createAntdDrawer.install = function(Vue, drawerCpt) {
+createAntdDrawer.install = function(Vue, { component, router, store }) {
   Vue.prototype.$createAntdDrawer = (options) =>
-    createAntdDrawer(Vue, drawerCpt, options);
+    createAntdDrawer(Vue, { component, router, store }, options);
 };

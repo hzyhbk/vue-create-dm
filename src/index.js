@@ -6,18 +6,21 @@ import { createViewModal } from './createViewModal';
 export { createAntdDrawer, createAntdModal, createViewDrawer, createViewModal };
 
 export default {
-  install(Vue, { antdModal, antdDrawer, viewModal, viewDrawer }) {
+  install(
+    Vue,
+    { antdModal, antdDrawer, viewModal, viewDrawer, router, store }
+  ) {
     if (antdModal) {
-      createAntdModal.install(Vue, antdModal);
+      createAntdModal.install(Vue, { component: antdModal, router, store });
     }
     if (antdDrawer) {
-      createAntdDrawer.install(Vue, antdDrawer);
+      createAntdDrawer.install(Vue, { component: antdDrawer, router, store });
     }
     if (viewModal) {
-      createViewModal.install(Vue, viewModal);
+      createViewModal.install(Vue, { component: viewModal, router, store });
     }
     if (viewDrawer) {
-      createViewDrawer.install(Vue, viewDrawer);
+      createViewDrawer.install(Vue, { component: viewDrawer, router, store });
     }
   },
 };
