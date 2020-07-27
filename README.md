@@ -11,7 +11,7 @@
 - [x] 支持 Modal、Drawer 与父应用通信
 - [x] 支持子组件获取 this.$store 和 this.$router
 - [x] 支持传入路由来匹配**内容**组件，
-  - [x] 若传入`url`（比如 https://www.baidu.com），则以 iframe 形式展示
+  - [x] 若传入`url` 比如 https://www.baidu.com ，则以 iframe 形式展示
   - [x] 若传入 `相对路由`（比如 /foo, /bar），则获取匹配的路由组件展示
 
 ## 安装
@@ -114,7 +114,7 @@ this.$createAntdDrawer({
   afterClose: function({ payload, slotPayload }) {
     console.log('我已经关闭了');
   },
-});
+}, location);
 ```
 
 ### createAntdModal、createViewModal
@@ -173,5 +173,5 @@ this.$createAntdModal({
       }, 3000);
     });
   },
-});
+}, location);
 ```
