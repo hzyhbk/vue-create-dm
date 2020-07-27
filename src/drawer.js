@@ -1,5 +1,6 @@
 import { createDrawerSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
+import { locationMatcher } from './locationMatcher';
 
 /**
  * drawerProps 就是组件库的 drawer 支持的props
@@ -93,37 +94,47 @@ export function createDrawer(
 
 // 创建 antd drawer 的扩展方法
 export const createAntdDrawer = {
-  install(Vue, { component, router, store }) {
-    Vue.prototype.$createAntdDrawer = (options) =>
-      createDrawer(
+  install(Vue, baseOption) {
+    Vue.prototype.$createAntdDrawer = function(options, location) {
+      const newOptions = locationMatcher.call(
+        this,
+        location,
+        baseOption,
+        options
+      );
+      return createDrawer(
         Vue,
         {
-          component,
-          router,
-          store,
+          ...baseOption,
           titleSlotName: 'title',
           visiblePropName: 'visible',
           closeCbName: 'close',
         },
         options
       );
+    };
   },
 };
 // 创建 iview drawer 的扩展方法
 export const createViewDrawer = {
-  install(Vue, { component, router, store }) {
-    Vue.prototype.$createViewDrawer = (options) =>
-      createDrawer(
+  install(Vue, baseOption) {
+    Vue.prototype.$createViewDrawer = function(options, location) {
+      const newOptions = locationMatcher.call(
+        this,
+        location,
+        baseOption,
+        options
+      );
+      return createDrawer(
         Vue,
         {
-          component,
-          router,
-          store,
+          ...baseOption,
           titleSlotName: 'header',
           visiblePropName: 'value',
           closeCbName: 'on-close',
         },
-        options
+        newOptions
       );
+    };
   },
 };

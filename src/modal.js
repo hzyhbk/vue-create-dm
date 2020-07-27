@@ -1,6 +1,6 @@
 import { createModalSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
-
+import { locationMatcher } from './locationMatcher';
 /**
  * modalProps 就是组件库的 modal 支持的props
  * title、content、footer 都是对象，其中 template 属性代表组件，其他属性同 vue 的原生属性 https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1
@@ -110,41 +110,51 @@ export function createModal(
 }
 // 创建 antd modal 的扩展方法
 export const createAntdModal = {
-  install(Vue, { component, router, store }) {
-    Vue.prototype.$createAntdModal = (options) =>
-      createModal(
+  install(Vue, baseOption) {
+    Vue.prototype.$createAntdModal = function(options, location) {
+      const newOptions = locationMatcher.call(
+        this,
+        location,
+        baseOption,
+        options
+      );
+      return createModal(
         Vue,
         {
-          component,
-          router,
-          store,
+          ...baseOption,
           titleSlotName: 'title',
           footerSlotName: 'footer',
           visiblePropName: 'visible',
           cancelCbName: 'cancel',
           okCbName: 'ok',
         },
-        options
+        newOptions
       );
+    };
   },
 };
 // 创建 iview modal 的扩展方法
 export const createViewModal = {
-  install(Vue, { component, router, store }) {
-    Vue.prototype.$createViewModal = (options) =>
-      createModal(
+  install(Vue, baseOption) {
+    Vue.prototype.$createViewModal = function(options, location) {
+      const newOptions = locationMatcher.call(
+        this,
+        location,
+        baseOption,
+        options
+      );
+      return createModal(
         Vue,
         {
-          component,
-          router,
-          store,
+          ...baseOption,
           titleSlotName: 'header',
           footerSlotName: 'footer',
           visiblePropName: 'value',
           cancelCbName: 'on-cancel',
           okCbName: 'on-ok',
         },
-        options
+        newOptions
       );
+    };
   },
 };

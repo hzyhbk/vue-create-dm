@@ -2,6 +2,7 @@ import { createAntdDrawer, createViewDrawer, createDrawer } from './drawer';
 import { createAntdModal, createViewModal, createModal } from './modal';
 import { getSlotPayload } from './getSlotPayload';
 import { createDrawerSlot, createModalSlot } from './createCreateSlot';
+import { locationMatcher } from './locationMatcher';
 
 export {
   createAntdDrawer,
@@ -11,6 +12,7 @@ export {
   getSlotPayload,
   createDrawerSlot,
   createModalSlot,
+  locationMatcher,
 };
 
 export default {

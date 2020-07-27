@@ -1,5 +1,6 @@
 import { createModalSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
+import { locationMatcher } from './locationMatcher';
 
 /**
  * modalProps 就是 antd 的 modal 组件的 props
@@ -95,7 +96,10 @@ export function createViewModal(
   return vn;
 }
 
-createViewModal.install = function(Vue, { component, router, store }) {
-  Vue.prototype.$createViewModal = (options) =>
-    createViewModal(Vue, { component, router, store }, options);
+createViewModal.install = function(Vue, baseOptions) {
+  Vue.prototype.$createViewModal = function(options, location) {
+    console.log(this);
+    let newOptions = locationMatcher.call(this, location, baseOptions, options);
+    return createViewModal(Vue, baseOptions, newOptions);
+  };
 };
