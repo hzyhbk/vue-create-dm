@@ -62,7 +62,7 @@ export function createModal(
           payloadSlot
         );
         self.$data.confirmLoading = true;
-        await onOk({ payload, slotPayload });
+        onOk && (await onOk({ payload, slotPayload }));
         self.$data.confirmLoading = false;
         await handleClose({ payload, slotPayload });
       };
