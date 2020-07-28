@@ -32,15 +32,22 @@ export function createModal(
   } = options;
   const el = document.createElement('div');
   document.body.appendChild(el);
+  let firstRender = true;// hack iview modal创建时没有动画的问题
 
   const vn = new Vue({
     data: {
-      visible: true,
+      visible: false,
       confirmLoading: false,
       slotVnMap: {},
     },
     render(createElement) {
       const self = this;
+      if (firstRender) {
+        setTimeout(() => {
+          self.$data.visible = true;
+          firstRender = false;
+        }, 0);
+      }
       const handleClose = async (payload) => {
         beforeClose && (await beforeClose(payload));
         self.$data.visible = false;
@@ -93,6 +100,7 @@ export function createModal(
         {
           props: {
             ...modalProps,
+            confirmLoading: self.$data.confirmLoading,
             [visiblePropName]: self.$data.visible,
           },
           on: {

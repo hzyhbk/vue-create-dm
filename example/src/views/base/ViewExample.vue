@@ -53,6 +53,8 @@ export default {
         modalProps: {
           title: 'abcs',
           width: '500px',
+          transfer: false,
+          inner: true,
         },
         content: {
           template: HelloWorld,

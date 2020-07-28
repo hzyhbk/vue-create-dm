@@ -47,6 +47,8 @@ export default {
         drawerProps: {
           title: 'abcs',
           width: '500px',
+          transfer: false,
+          inner: true,
         },
         content: {
           template: HelloWorld,
