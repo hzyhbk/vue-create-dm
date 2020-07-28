@@ -1,30 +1,25 @@
 import Vue from 'vue';
 import App from './App.vue';
-import {
-  Button,
-  Icon,
-  Modal as antdModal,
-  Drawer as antdDrawer,
-  Input,
-} from 'ant-design-vue';
+import Antd from 'ant-design-vue';
+import { Modal as antdModal, Drawer as antdDrawer } from 'ant-design-vue';
 import { Modal as viewModal, Drawer as viewDrawer } from 'view-design';
 import VueCreateDM from 'vue-create-dm';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
-import page1 from './views/page1/index.vue';
-import page2 from './views/page2/index.vue';
+import foo from './views/foo/index.vue';
+import bar from './views/bar/index.vue';
+import base from './views/base/index.vue';
+import match from './views/match/index.vue';
 import 'ant-design-vue/dist/antd.css';
 import 'view-design/dist/styles/iview.css';
-import { createViewModal } from './createViewModal';
-// import { createDrawer } from './drawer';
 Vue.config.productionTip = false;
-Vue.use(Button);
-Vue.use(Icon);
-Vue.use(Input);
+Vue.use(Antd);
 Vue.use(VueRouter);
 const routes = [
-  { path: '/foo', component: page1 },
-  { path: '/bar', component: page2 },
+  { path: '/foo', component: foo },
+  { path: '/bar', component: bar },
+  { path: '/base', component: base },
+  { path: '/match', component: match },
 ];
 const router = new VueRouter({ routes });
 
@@ -42,13 +37,9 @@ const store = new Vuex.Store({
 Vue.use(VueCreateDM, {
   antdModal,
   antdDrawer,
-  // viewModal,
+  viewModal,
   viewDrawer,
   store,
-  router,
-});
-Vue.use(createViewModal, {
-  component: viewModal,
   router,
 });
 

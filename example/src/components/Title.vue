@@ -4,11 +4,7 @@
       <a-icon type="left" @click="close"></a-icon>
     </div>
     <div class="title">{{ title }}</div>
-    <div class="right-btn">
-      <a-button v-if="showBtn" type="link" @click="handleCommit">{{
-        btnText
-      }}</a-button>
-    </div>
+    <div></div>
   </div>
 </template>
 
@@ -20,10 +16,6 @@ export default {
       type: String,
       default: '确认',
     },
-    showBtn: {
-      type: Boolean,
-      default: false,
-    },
     title: {
       type: String,
       default: 'title',
@@ -34,10 +26,8 @@ export default {
   },
   methods: {
     close() {
+      // 接收 close 事件，来关闭弹框
       this.$emit('close', 'hhhh');
-    },
-    handleCommit() {
-      this.$emit('commit');
     },
   },
 };
