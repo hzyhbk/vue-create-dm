@@ -110,7 +110,7 @@ export const createAntdDrawer = {
           visiblePropName: 'visible',
           closeCbName: 'close',
         },
-        options
+        newOptions
       );
     };
   },
