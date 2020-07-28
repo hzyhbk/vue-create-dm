@@ -62,6 +62,8 @@ Vue.use(createAntdDrawer, {
 ```
 
 ## 组件中使用
+
+第一个参数是配置项，第二个参数是 url 或者项目路由
 ```js
 this.$createAntdModal(options, location);
 
@@ -73,7 +75,9 @@ this.$createViewModal(options, location);
 ```
 
 ## 例子
-见 example 文件夹
+[在线地址](https://hzyhbk.github.io/vue-create-dm/#/base)
+
+代码见 example 文件夹
 
 ## API 介绍
 ### createAntdDrawer、createViewDrawer
