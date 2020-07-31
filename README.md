@@ -96,13 +96,18 @@ this.$createAntdDrawer({
   // antd drawer 的所有props
   drawerProps: {},
   /*
-   * 不传 或者 传false
+   * 不传 或者 传 false，不调用
    * 传 'title' 调用 标题子组件 的 providePayload 方法
    * 传 true 或者 'default' 调用 内容子组件 的 providePayload 方法
    */
   payloadSlot: true | false | 'title' | 'default',
-  // title slot
-  // drawerProps.title 和 title 同时存在的话，优先使用 title
+  /** title slot
+   * 1. 如果注册了全局 header ,优先使用全局header组件:
+   *    1.1 此项可以传 string
+   *    1.2 此项也可不传，那就使用 drawerProps.title
+   *    1.3 如果还是传对象，那就不使用全局header组件
+   * 2. 如果未注册，drawerProps.title 和 title 同时存在的话，优先使用 title
+  */
   title: {
     template: Title,
     props: {
