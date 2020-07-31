@@ -1,6 +1,7 @@
 import { createModalSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 import { locationMatcher } from './locationMatcher';
+import { setGlobalHeader } from './setGlobalHeader';
 /**
  * modalProps 就是组件库的 modal 支持的props
  * title、content、footer 都是对象，其中 template 属性代表组件，其他属性同 vue 的原生属性 https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1
@@ -32,7 +33,7 @@ export function createModal(
   } = options;
   const el = document.createElement('div');
   document.body.appendChild(el);
-  let firstRender = true;// hack iview modal创建时没有动画的问题
+  let firstRender = true; // hack iview modal创建时没有动画的问题
 
   const vn = new Vue({
     data: {
@@ -126,6 +127,7 @@ export const createAntdModal = {
         baseOption,
         options
       );
+      const optionsWithGH = setGlobalHeader(baseOption, newOptions);
       return createModal(
         Vue,
         {
@@ -136,7 +138,7 @@ export const createAntdModal = {
           cancelCbName: 'cancel',
           okCbName: 'ok',
         },
-        newOptions
+        optionsWithGH
       );
     };
   },
@@ -151,6 +153,7 @@ export const createViewModal = {
         baseOption,
         options
       );
+      const optionsWithGH = setGlobalHeader(baseOption, newOptions);
       return createModal(
         Vue,
         {
@@ -161,7 +164,7 @@ export const createViewModal = {
           cancelCbName: 'on-cancel',
           okCbName: 'on-ok',
         },
-        newOptions
+        optionsWithGH
       );
     };
   },

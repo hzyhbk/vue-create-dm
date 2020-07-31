@@ -4,7 +4,7 @@
       <a-icon type="left" @click="close"></a-icon>
     </div>
     <div class="title">{{ title }}</div>
-    <div></div>
+    <div>hahahahahhahahha</div>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     },
     title: {
       type: String,
-      default: 'title',
+      default: '',
     },
   },
   data() {

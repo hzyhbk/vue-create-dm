@@ -13,6 +13,7 @@ import match from './views/match/index.vue';
 import 'ant-design-vue/dist/antd.css';
 import 'view-design/dist/styles/iview.css';
 import VueCreateDM from '../../src';
+// import globalHeader from './components/Title';
 Vue.config.productionTip = false;
 Vue.use(Antd);
 Vue.use(VueRouter);
@@ -42,6 +43,7 @@ Vue.use(VueCreateDM, {
   viewDrawer,
   store,
   router,
+  // globalHeader,
 });
 
 new Vue({

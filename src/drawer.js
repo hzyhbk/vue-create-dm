@@ -1,6 +1,7 @@
 import { createDrawerSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 import { locationMatcher } from './locationMatcher';
+import { setGlobalHeader } from './setGlobalHeader';
 
 /**
  * drawerProps 就是组件库的 drawer 支持的props
@@ -109,6 +110,7 @@ export const createAntdDrawer = {
         baseOption,
         options
       );
+      const optionsWithGH = setGlobalHeader(baseOption, newOptions);
       return createDrawer(
         Vue,
         {
@@ -117,7 +119,7 @@ export const createAntdDrawer = {
           visiblePropName: 'visible',
           closeCbName: 'close',
         },
-        newOptions
+        optionsWithGH
       );
     };
   },
@@ -132,6 +134,7 @@ export const createViewDrawer = {
         baseOption,
         options
       );
+      const optionsWithGH = setGlobalHeader(baseOption, newOptions);
       return createDrawer(
         Vue,
         {
@@ -140,7 +143,7 @@ export const createViewDrawer = {
           visiblePropName: 'value',
           closeCbName: 'on-close',
         },
-        newOptions
+        optionsWithGH
       );
     };
   },

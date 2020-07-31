@@ -3,6 +3,7 @@ import { createAntdModal, createViewModal, createModal } from './modal';
 import { getSlotPayload } from './getSlotPayload';
 import { createDrawerSlot, createModalSlot } from './createCreateSlot';
 import { locationMatcher } from './locationMatcher';
+import { setGlobalHeader } from './setGlobalHeader';
 
 export {
   createAntdDrawer,
@@ -13,24 +14,48 @@ export {
   createDrawerSlot,
   createModalSlot,
   locationMatcher,
+  setGlobalHeader,
 };
 
 export default {
   install(
     Vue,
-    { antdModal, antdDrawer, viewModal, viewDrawer, ...restOptions }
+    {
+      antdModal,
+      antdDrawer,
+      viewModal,
+      viewDrawer,
+      globalHeader,
+      ...restOptions
+    }
   ) {
     if (antdModal) {
-      createAntdModal.install(Vue, { component: antdModal, ...restOptions });
+      createAntdModal.install(Vue, {
+        component: antdModal,
+        globalHeader,
+        ...restOptions,
+      });
     }
     if (antdDrawer) {
-      createAntdDrawer.install(Vue, { component: antdDrawer, ...restOptions });
+      createAntdDrawer.install(Vue, {
+        component: antdDrawer,
+        globalHeader,
+        ...restOptions,
+      });
     }
     if (viewModal) {
-      createViewModal.install(Vue, { component: viewModal, ...restOptions });
+      createViewModal.install(Vue, {
+        component: viewModal,
+        globalHeader,
+        ...restOptions,
+      });
     }
     if (viewDrawer) {
-      createViewDrawer.install(Vue, { component: viewDrawer, ...restOptions });
+      createViewDrawer.install(Vue, {
+        component: viewDrawer,
+        globalHeader,
+        ...restOptions,
+      });
     }
   },
 };
