@@ -7,7 +7,7 @@
 ## 功能亮点
 - [x] 通过函数来创建 Modal 或者 Drawer 组件
 - [x] Modal、Drawer 的内容子组件的 created、mounted 生命周期按照正常逻辑触发
-- [x] 支持注册全局 title
+- [x] Modal、Drawer 支持分别注册全局头部组件
 - [x] 支持传入 title、content、footer 插槽
 - [x] 支持 Modal、Drawer 与父应用通信
 - [x] 支持子组件获取 this.$store 和 this.$router
@@ -28,7 +28,8 @@ import { Modal as antdModal, Drawer as antdDrawer } from 'ant-design-vue';
 import { Modal as viewModal, Drawer as viewDrawer } from 'view-design';
 import Vuex from 'vuex'
 import VueRouter from 'vue-router';
-import globalHeader from '../components/globalHeader';
+import modalGlobalHeader from '../components/modalGlobalHeader';
+import drawerGlobalHeader from '../components/drawerGlobalHeader';
 
 // 如果要在子组件内获取 this.$store 和 this.$router
 // 请把 VueCreateDM 的注册放到 Vuex 和 VueRouter 实例生成之后
@@ -50,7 +51,8 @@ Vue.use(VueCreateDM, {
   viewDrawer,
   store,
   router,
-  globalHeader,
+  modalGlobalHeader,
+  drawerGlobalHeader,
 });
 ```
 ### 2. 单个注册
