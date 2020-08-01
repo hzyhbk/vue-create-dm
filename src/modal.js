@@ -70,9 +70,13 @@ export function createModal(
           payloadSlot
         );
         self.$data.confirmLoading = true;
-        onOk && (await onOk({ payload, slotPayload }));
+        // 如果返回false表示不关闭，其他情况关闭
+        const res = onOk && (await onOk({ payload, slotPayload }));
         self.$data.confirmLoading = false;
-        await handleClose({ payload, slotPayload });
+        if (res === false) {
+        } else {
+          await handleClose({ payload, slotPayload });
+        }
       };
       const createSlot = createModalSlot(
         createElement,

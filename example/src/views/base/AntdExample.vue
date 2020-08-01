@@ -88,12 +88,13 @@ export default {
           console.log('我已经关闭了');
         },
         async onOk() {
-          await new Promise((resolve) => {
+          const res = await new Promise((resolve) => {
             setTimeout(() => {
               console.log('点了确定');
-              resolve();
+              resolve(false);
             }, 3000);
           });
+          return res;
         },
       });
     },
