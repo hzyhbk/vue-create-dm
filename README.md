@@ -7,7 +7,7 @@
 ## 功能亮点
 - [x] 通过函数来创建 Modal 或者 Drawer 组件
 - [x] Modal、Drawer 的内容子组件的 created、mounted 生命周期按照正常逻辑触发
-- [x] Modal、Drawer 支持分别注册全局头部组件
+- [x] Modal、Drawer 支持分别注册全局头部组件(接收名为 title 的 props)
 - [x] 支持传入 title、content、footer 插槽
 - [x] 支持 Modal、Drawer 与父应用通信
 - [x] 支持子组件获取 this.$store 和 this.$router
