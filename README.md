@@ -182,13 +182,15 @@ this.$createAntdModal({
     console.log('我已经关闭了');
   },
   // 确定按钮回调 支持async
+  // 返回false表示不关闭弹框，其他情况关闭
   async onOk({ payload, slotPayload}) {
-    await new Promise((resolve) => {
+    const res = await new Promise((resolve) => {
       setTimeout(() => {
         console.log('点了确定');
-        resolve();
+        resolve(false);
       }, 3000);
     });
+    return res;
   },
 }, location);
 ```
