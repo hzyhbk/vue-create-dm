@@ -25,35 +25,36 @@ export default {
       antdDrawer,
       viewModal,
       viewDrawer,
-      globalHeader,
+      modalGlobalHeader,
+      drawerGlobalHeader,
       ...restOptions
     }
   ) {
     if (antdModal) {
       createAntdModal.install(Vue, {
         component: antdModal,
-        globalHeader,
+        globalHeader: modalGlobalHeader,
         ...restOptions,
       });
     }
     if (antdDrawer) {
       createAntdDrawer.install(Vue, {
         component: antdDrawer,
-        globalHeader,
+        globalHeader: drawerGlobalHeader,
         ...restOptions,
       });
     }
     if (viewModal) {
       createViewModal.install(Vue, {
         component: viewModal,
-        globalHeader,
+        globalHeader: modalGlobalHeader,
         ...restOptions,
       });
     }
     if (viewDrawer) {
       createViewDrawer.install(Vue, {
         component: viewDrawer,
-        globalHeader,
+        globalHeader: drawerGlobalHeader,
         ...restOptions,
       });
     }
