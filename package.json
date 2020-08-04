@@ -5,11 +5,13 @@
   "main": "./dist/vue-create-dm.umd.min.js",
   "files": [
     "src",
-    "dist/*.js"
+    "dist/*.js",
+    "index.d.ts"
   ],
   "scripts": {
     "build": "vue-cli-service build --target lib --inline-vue --name vue-create-dm ./src/index.js"
   },
+  "typings": "index.d.ts",
   "keywords": [
     "ant",
     "design",
