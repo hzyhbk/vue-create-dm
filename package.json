@@ -1,6 +1,6 @@
 {
   "name": "vue-create-dm",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "author": "hzyhbk",
   "main": "./dist/vue-create-dm.umd.min.js",
   "files": [
