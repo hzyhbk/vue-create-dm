@@ -20,6 +20,8 @@ export {
   createAntdModal,
   createViewDrawer,
   createViewModal,
+  createEleDrawer,
+  createEleModal,
   getSlotPayload,
   createDrawerSlot,
   createModalSlot,
