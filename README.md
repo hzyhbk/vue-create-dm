@@ -102,7 +102,7 @@ this.$createViewModal(options, location);
 ```
 
 ## 例子
-[在线地址](https://hzyhbk.github.io/vue-create-dm/#/base)
+[在线地址](https://hzyhbk.github.io/vue-create-dm/#/antd)
 
 代码见 `example` 文件夹
 
