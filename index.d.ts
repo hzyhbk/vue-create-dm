@@ -12,6 +12,8 @@ export type IPluginOption = {
   antdDrawer: Component;
   viewModal: Component;
   viewDrawer: Component;
+  eleModal: Component;
+  eleDrawer: Component;
   router: any;
   store: any;
   modalGlobalHeader: Component;
@@ -95,6 +97,8 @@ declare module 'vue/types/vue' {
     $createAntdDrawer: (options: IDrawerOption, location: string) => VNode;
     $createViewModal: (options: IModalOption, location: string) => VNode;
     $createViewDrawer: (options: IDrawerOption, location: string) => VNode;
+    $createEleModal: (options: IModalOption, location: string) => VNode;
+    $createEleDrawer: (options: IDrawerOption, location: string) => VNode;
   }
 }
 
