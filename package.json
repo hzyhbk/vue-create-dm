@@ -9,7 +9,8 @@
     "index.d.ts"
   ],
   "scripts": {
-    "build": "vue-cli-service build --target lib --inline-vue --name vue-create-dm ./src/index.js"
+    "build": "vue-cli-service build --target lib --inline-vue --name vue-create-dm ./src/index.js",
+    "build:rollup": "rimraf dist && rollup --config rollup.config.js"
   },
   "typings": "index.d.ts",
   "keywords": [
@@ -35,6 +36,9 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "rollup": "^2.23.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-uglify": "^6.0.4",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

@@ -44,48 +44,41 @@ export default {
       ...restOptions
     }
   ) {
-    console.log(12312312312);
-    if (antdModal) {
-      createAntdModal.install(Vue, {
+    const components = [
+      {
         component: antdModal,
-        globalHeader: modalGlobalHeader,
-        ...restOptions,
-      });
-    }
-    if (antdDrawer) {
-      createAntdDrawer.install(Vue, {
+        plugin: createAntdModal,
+      },
+      {
         component: antdDrawer,
-        globalHeader: drawerGlobalHeader,
-        ...restOptions,
-      });
-    }
-    if (viewModal) {
-      createViewModal.install(Vue, {
+        plugin: createAntdDrawer,
+      },
+      {
         component: viewModal,
-        globalHeader: modalGlobalHeader,
-        ...restOptions,
-      });
-    }
-    if (viewDrawer) {
-      createViewDrawer.install(Vue, {
+        plugin: createViewModal,
+      },
+      {
         component: viewDrawer,
-        globalHeader: drawerGlobalHeader,
-        ...restOptions,
-      });
-    }
-    if (eleModal) {
-      createEleModal.install(Vue, {
+        plugin: createViewDrawer,
+      },
+      {
         component: eleModal,
-        globalHeader: drawerGlobalHeader,
-        ...restOptions,
-      });
-    }
-    if (eleDrawer) {
-      createEleDrawer.install(Vue, {
+        plugin: createEleModal,
+      },
+      {
         component: eleDrawer,
-        globalHeader: drawerGlobalHeader,
-        ...restOptions,
-      });
-    }
+        plugin: createEleDrawer,
+      },
+    ];
+
+    components.forEach((cpt) => {
+      if (cpt.component) {
+        cpt.plugin.install(Vue, {
+          component: cpt.component,
+          globalHeader: modalGlobalHeader,
+          ...restOptions,
+        });
+      }
+    });
   },
 };
