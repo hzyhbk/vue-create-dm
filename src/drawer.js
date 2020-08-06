@@ -148,3 +148,27 @@ export const createViewDrawer = {
     };
   },
 };
+// 创建 ele drawer 的扩展方法
+export const createEleDrawer = {
+  install(Vue, baseOption) {
+    Vue.prototype.$createEleDrawer = function(options, location) {
+      const newOptions = locationMatcher.call(
+        this,
+        location,
+        baseOption,
+        options
+      );
+      const optionsWithGH = setGlobalHeader(baseOption, newOptions);
+      return createDrawer(
+        Vue,
+        {
+          ...baseOption,
+          titleSlotName: 'title',
+          visiblePropName: 'visible',
+          closeCbName: 'close',
+        },
+        optionsWithGH
+      );
+    };
+  },
+};

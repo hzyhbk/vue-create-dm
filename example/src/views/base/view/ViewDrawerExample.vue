@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ExampleCard title="Antd Drawer 抽屉">
+    <ExampleCard title="IView Drawer 抽屉">
       <a-button type="primary" @click="createDrawer">
         创建抽屉
       </a-button>
@@ -26,13 +26,13 @@
 </template>
 
 <script>
-import ExampleCard from '../../components/ExampleCard';
-import HelloWorld from '../../components/HelloWorld';
-import Title from '../../components/Title';
+import ExampleCard from '@/components/ExampleCard';
+import HelloWorld from '@/components/HelloWorld';
+import Title from '@/components/Title';
 import { Input } from 'ant-design-vue';
 
 export default {
-  name: 'AntdDrawerExample',
+  name: 'ViewDrawerExample',
   components: {
     ExampleCard,
   },
@@ -43,10 +43,12 @@ export default {
   },
   methods: {
     createDrawer() {
-      this.$createAntdDrawer({
+      this.$createViewDrawer({
         drawerProps: {
           title: 'abcs',
           width: '500px',
+          transfer: false,
+          inner: true,
         },
         content: {
           template: HelloWorld,
@@ -63,7 +65,7 @@ export default {
       });
     },
     createCustomTitleDrawer() {
-      this.$createAntdDrawer({
+      this.$createViewDrawer({
         drawerProps: {
           title: 'abcs',
           width: '500px',
@@ -91,7 +93,7 @@ export default {
     },
     createDataDrawer() {
       let self = this;
-      this.$createAntdDrawer({
+      this.$createViewDrawer({
         drawerProps: {
           title: '数据抽屉',
         },
@@ -115,7 +117,7 @@ export default {
       });
     },
     createDataFromSonDrawer() {
-      this.$createAntdDrawer({
+      this.$createViewDrawer({
         drawerProps: {
           title: 'abcs',
           width: '500px',

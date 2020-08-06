@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ExampleCard title="IView Modal 弹框">
+    <ExampleCard title="Antd Modal 弹框">
       <a-button type="primary" @click="createModal">
         创建弹框
       </a-button>
@@ -31,14 +31,14 @@
 </template>
 
 <script>
-import ExampleCard from '../../components/ExampleCard';
-import HelloWorld from '../../components/HelloWorld';
-import Title from '../../components/Title';
-import Footer from '../../components/Footer';
+import ExampleCard from '@/components/ExampleCard';
+import HelloWorld from '@/components/HelloWorld';
+import Title from '@/components/Title';
+import Footer from '@/components/Footer';
 import { Input } from 'ant-design-vue';
 
 export default {
-  name: 'ViewExample',
+  name: 'AntdExample',
   components: {
     ExampleCard,
   },
@@ -49,12 +49,10 @@ export default {
   },
   methods: {
     createModal() {
-      this.$createViewModal({
+      this.$createAntdModal({
         modalProps: {
           title: 'abcs',
           width: '500px',
-          transfer: false,
-          inner: true,
         },
         content: {
           template: HelloWorld,
@@ -62,27 +60,14 @@ export default {
             msg: 'Welcome to Your Vue.js App',
           },
         },
-        beforeClose: function() {
-          console.log('我要关闭了');
-        },
-        afterClose: function() {
-          console.log('我已经关闭了');
-        },
-        async onOk() {
-          await new Promise((resolve) => {
-            setTimeout(() => {
-              console.log('点了确定');
-              resolve();
-            }, 3000);
-          });
-        },
       });
     },
     createCustomTitleModal() {
-      this.$createViewModal({
+      this.$createAntdModal({
         modalProps: {
           title: 'abcs',
           width: '500px',
+          closable: false,
         },
         title: {
           template: Title,
@@ -103,20 +88,22 @@ export default {
           console.log('我已经关闭了');
         },
         async onOk() {
-          await new Promise((resolve) => {
+          const res = await new Promise((resolve) => {
             setTimeout(() => {
               console.log('点了确定');
-              resolve();
+              resolve(false);
             }, 3000);
           });
+          return res;
         },
       });
     },
     createCustomFooterModal() {
-      this.$createViewModal({
+      this.$createAntdModal({
         modalProps: {
           title: 'abcs',
           width: '500px',
+          closable: false,
         },
         title: {
           template: Title,
@@ -133,8 +120,8 @@ export default {
         footer: {
           template: Footer,
           props: {
-            cancelText: 'hahah取消',
-            okText: 'hahah确定',
+            cancelText: '自定义取消',
+            okText: '自定义取消',
           },
         },
         beforeClose: function() {
@@ -155,7 +142,7 @@ export default {
     },
     createDataModal() {
       let self = this;
-      this.$createViewModal({
+      this.$createAntdModal({
         modalProps: {
           title: '数据弹框',
           okText: '确认',
@@ -178,7 +165,7 @@ export default {
       });
     },
     createDataFromSonModal() {
-      this.$createViewModal({
+      this.$createAntdModal({
         modalProps: {
           title: 'abcs',
           width: '500px',

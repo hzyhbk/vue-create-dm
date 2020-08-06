@@ -1,5 +1,15 @@
-import { createAntdDrawer, createViewDrawer, createDrawer } from './drawer';
-import { createAntdModal, createViewModal, createModal } from './modal';
+import {
+  createAntdDrawer,
+  createViewDrawer,
+  createDrawer,
+  createEleDrawer,
+} from './drawer';
+import {
+  createAntdModal,
+  createViewModal,
+  createModal,
+  createEleModal,
+} from './modal';
 import { getSlotPayload } from './getSlotPayload';
 import { createDrawerSlot, createModalSlot } from './createCreateSlot';
 import { locationMatcher } from './locationMatcher';
@@ -25,11 +35,14 @@ export default {
       antdDrawer,
       viewModal,
       viewDrawer,
+      eleModal,
+      eleDrawer,
       modalGlobalHeader,
       drawerGlobalHeader,
       ...restOptions
     }
   ) {
+    console.log(12312312312);
     if (antdModal) {
       createAntdModal.install(Vue, {
         component: antdModal,
@@ -54,6 +67,20 @@ export default {
     if (viewDrawer) {
       createViewDrawer.install(Vue, {
         component: viewDrawer,
+        globalHeader: drawerGlobalHeader,
+        ...restOptions,
+      });
+    }
+    if (eleModal) {
+      createEleModal.install(Vue, {
+        component: eleModal,
+        globalHeader: drawerGlobalHeader,
+        ...restOptions,
+      });
+    }
+    if (eleDrawer) {
+      createEleDrawer.install(Vue, {
+        component: eleDrawer,
         globalHeader: drawerGlobalHeader,
         ...restOptions,
       });

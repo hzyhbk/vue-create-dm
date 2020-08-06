@@ -5,13 +5,24 @@
       <a-menu
         theme="dark"
         mode="inline"
+        :openKeys="['/base']"
         :default-selected-keys="[$router.currentRoute.fullPath]"
       >
-        <a-menu-item key="/base">
-          <router-link to="/base" />
-          <a-icon type="user" />
-          <span>基础示例</span>
-        </a-menu-item>
+        <a-sub-menu key="/base">
+          <span slot="title"><a-icon type="user" />基础示例</span>
+          <a-menu-item key="/antd">
+            <router-link to="/antd" />
+            <span>Ant Design</span>
+          </a-menu-item>
+          <a-menu-item key="/view">
+            <router-link to="/view" />
+            <span>View UI</span>
+          </a-menu-item>
+          <a-menu-item key="/elem">
+            <router-link to="/elem" />
+            <span>Element UI</span>
+          </a-menu-item>
+        </a-sub-menu>
         <a-menu-item key="/match">
           <router-link to="/match" />
           <a-icon type="video-camera" />
@@ -22,7 +33,7 @@
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0">
         <h2 style="padding: 0 16px">
-          代码见src/views{{ $router.currentRoute.fullPath }}
+          {{ getSrcPath() }}
         </h2>
       </a-layout-header>
       <a-layout-content
@@ -31,6 +42,7 @@
           padding: '24px',
           background: '#fff',
           minHeight: '280px',
+          overflow: 'auto',
         }"
       >
         <router-view />
@@ -44,6 +56,16 @@ export default {
     return {
       collapsed: false,
     };
+  },
+  methods: {
+    getSrcPath() {
+      const routerPath = this.$router.currentRoute.fullPath;
+      if (routerPath === '/match') {
+        return '代码见src/views/match';
+      } else {
+        return '代码见src/views/base' + routerPath;
+      }
+    },
   },
 };
 </script>

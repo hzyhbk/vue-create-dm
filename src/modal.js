@@ -14,6 +14,7 @@ export function createModal(
     titleSlotName = 'title', //原来组件提供的标题插槽名称
     footerSlotName = 'footer', //原来组件提供的footer插槽名称
     visiblePropName = 'visible', //原来控制抽屉组件显隐的属性名称
+    btnLoadingPropName = 'confirmLoading',
     cancelCbName = 'cancel', // 原来组件的关闭回调事件名称
     okCbName = 'ok', // 原来组件的确定回调事件名称
     router,
@@ -105,7 +106,7 @@ export function createModal(
         {
           props: {
             ...modalProps,
-            confirmLoading: self.$data.confirmLoading,
+            [btnLoadingPropName]: self.$data.confirmLoading,
             [visiblePropName]: self.$data.visible,
           },
           on: {
@@ -139,6 +140,7 @@ export const createAntdModal = {
           titleSlotName: 'title',
           footerSlotName: 'footer',
           visiblePropName: 'visible',
+          btnLoadingPropName: 'confirmLoading',
           cancelCbName: 'cancel',
           okCbName: 'ok',
         },
@@ -165,8 +167,36 @@ export const createViewModal = {
           titleSlotName: 'header',
           footerSlotName: 'footer',
           visiblePropName: 'value',
+          btnLoadingPropName: 'loading',
           cancelCbName: 'on-cancel',
           okCbName: 'on-ok',
+        },
+        optionsWithGH
+      );
+    };
+  },
+};
+// 创建 ele modal 的扩展方法
+export const createEleModal = {
+  install(Vue, baseOption) {
+    Vue.prototype.$createEleModal = function(options, location) {
+      const newOptions = locationMatcher.call(
+        this,
+        location,
+        baseOption,
+        options
+      );
+      const optionsWithGH = setGlobalHeader(baseOption, newOptions);
+      return createModal(
+        Vue,
+        {
+          ...baseOption,
+          titleSlotName: 'title',
+          footerSlotName: 'footer',
+          visiblePropName: 'visible',
+          btnLoadingPropName: 'loading',
+          cancelCbName: 'close',
+          okCbName: 'ok',
         },
         optionsWithGH
       );
