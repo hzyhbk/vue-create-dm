@@ -50,9 +50,12 @@ export default {
   methods: {
     createModal() {
       this.$createAntdModal({
+        stopPropagation: true,
         modalProps: {
           title: 'abcs',
           width: '500px',
+          mask: false,
+          maskClosable: false,
         },
         content: {
           template: HelloWorld,

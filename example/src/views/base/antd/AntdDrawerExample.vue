@@ -44,9 +44,11 @@ export default {
   methods: {
     createDrawer() {
       this.$createAntdDrawer({
+        stopPropagation: true,
         drawerProps: {
           title: 'abcs',
           width: '500px',
+          mask: false,
         },
         content: {
           template: HelloWorld,

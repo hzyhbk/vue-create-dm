@@ -27,6 +27,8 @@ export function createDrawer(
     beforeClose,
     afterClose,
     payloadSlot, // 'default', 'title', false, true
+    onClick,
+    stopPropagation,
   } = options;
   const el = document.createElement('div');
   document.body.appendChild(el);
@@ -45,6 +47,12 @@ export function createDrawer(
           firstRender = false;
         }, 0);
       }
+      const handleNativeClick = (event) => {
+        if (stopPropagation) {
+          event.stopPropagation();
+        }
+        onClick && onClick(event);
+      };
       const handleClose = async function(payload) {
         const slotPayload = await getSlotPayload(
           self.$data.slotVnMap,
@@ -89,6 +97,9 @@ export function createDrawer(
           },
           on: {
             [closeCbName]: handleClose,
+          },
+          nativeOn: {
+            click: handleNativeClick,
           },
         },
         children

@@ -31,6 +31,9 @@ export function createModal(
     afterClose,
     onOk,
     payloadSlot,
+    onClick,
+    // 是否阻止整个modal组件的点击事件冒泡
+    stopPropagation,
   } = options;
   const el = document.createElement('div');
   document.body.appendChild(el);
@@ -50,6 +53,12 @@ export function createModal(
           firstRender = false;
         }, 0);
       }
+      const handleNativeClick = (event) => {
+        if (stopPropagation) {
+          event.stopPropagation();
+        }
+        onClick && onClick(event);
+      };
       const handleClose = async (payload) => {
         beforeClose && (await beforeClose(payload));
         self.$data.visible = false;
@@ -112,6 +121,9 @@ export function createModal(
           on: {
             [cancelCbName]: handleClose,
             [okCbName]: handleOk,
+          },
+          nativeOn: {
+            click: handleNativeClick,
           },
         },
         children

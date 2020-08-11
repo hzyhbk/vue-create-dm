@@ -50,9 +50,11 @@ export default {
   methods: {
     createModal() {
       this.$createViewModal({
+        stopPropagation: true,
         modalProps: {
           title: 'abcs',
           width: '500px',
+          mask: false,
           transfer: false,
           inner: true,
         },
