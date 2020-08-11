@@ -122,6 +122,8 @@ this.$createViewModal(options, location);
 | content | 内容自定义组件。其中`content.template`必填，类型是一个vue组件，`content`对象的其他参数可参考vue官方文档[深入数据对象](https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1)。 | Object |
 | beforeClose | 抽屉关闭之前触发。其中`payload`代表调用子组件内调用`$eimt('close', params)`时携带的第二个参数；`slotPayload`表示从子组件中约定好的方法里获取到的返回值 | function({ payload, slotPayload }) |
 | afterClose | 抽屉关闭之前触发。 |function({ payload, slotPayload }) |
+|stopPropagation| 是否阻止原生`click`事件冒泡 | Boolean |
+|onClick| 原生`click`事件 | function(event) |
 
 #### 代码示例
 ```js
@@ -134,6 +136,10 @@ this.$createAntdDrawer({
    * 传 true 或者 'default' 调用 内容子组件 的 providePayload 方法
    */
   payloadSlot: true | false | 'title' | 'default',
+  // 是否阻止原生 click 事件冒泡
+  stopPropagation: true | false,
+  // 原生 click 事件
+  onClick: function(event){},
   /** title slot
    * 1. 如果注册了全局 header ,优先使用全局header组件:
    *    1.1 此项可以传 string
@@ -194,6 +200,10 @@ this.$createAntdModal({
    * 传 true 或者 'default' 调用 内容子组件 的 providePayload 方法
    */
   payloadSlot: true | false | 'title' | 'footer' | 'default',
+  // 是否阻止原生 click 事件冒泡
+  stopPropagation: true | false,
+  // 原生 click 事件
+  onClick: function(event){},
   // title slot
   // modalProps.title 和 title 同时存在的话，优先使用 title
   title: {
