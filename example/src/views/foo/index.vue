@@ -13,7 +13,7 @@ export default {
     };
   },
   mounted() {
-    console.log('asd');
+    console.log(this.$router, this.$store);
   },
 };
 </script>

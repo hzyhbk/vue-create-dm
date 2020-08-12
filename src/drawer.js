@@ -2,6 +2,7 @@ import { createDrawerSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 import { locationMatcher } from './locationMatcher';
 import { setGlobalHeader } from './setGlobalHeader';
+import { modifyOptions } from './modifyOptions';
 
 /**
  * drawerProps 就是组件库的 drawer 支持的props
@@ -113,8 +114,13 @@ export function createDrawer(
 
 // 创建 antd drawer 的扩展方法
 export const createAntdDrawer = {
-  install(Vue, baseOption) {
-    Vue.prototype.$createAntdDrawer = function(options, location) {
+  install(Vue, originBaseOption) {
+    Vue.prototype.$createAntdDrawer = function(options, argObj, argLocation) {
+      const { location, baseOption } = modifyOptions(
+        originBaseOption,
+        argObj,
+        argLocation
+      );
       const newOptions = locationMatcher.call(
         this,
         location,
@@ -137,8 +143,13 @@ export const createAntdDrawer = {
 };
 // 创建 iview drawer 的扩展方法
 export const createViewDrawer = {
-  install(Vue, baseOption) {
-    Vue.prototype.$createViewDrawer = function(options, location) {
+  install(Vue, originBaseOption) {
+    Vue.prototype.$createViewDrawer = function(options, argObj, argLocation) {
+      const { location, baseOption } = modifyOptions(
+        originBaseOption,
+        argObj,
+        argLocation
+      );
       const newOptions = locationMatcher.call(
         this,
         location,
@@ -161,8 +172,13 @@ export const createViewDrawer = {
 };
 // 创建 ele drawer 的扩展方法
 export const createEleDrawer = {
-  install(Vue, baseOption) {
-    Vue.prototype.$createEleDrawer = function(options, location) {
+  install(Vue, originBaseOption) {
+    Vue.prototype.$createEleDrawer = function(options, argObj, argLocation) {
+      const { location, baseOption } = modifyOptions(
+        originBaseOption,
+        argObj,
+        argLocation
+      );
       const newOptions = locationMatcher.call(
         this,
         location,

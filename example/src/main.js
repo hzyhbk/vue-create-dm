@@ -15,7 +15,7 @@ import globalHeader from './components/Title';
 Vue.config.productionTip = false;
 Vue.use(Antd);
 Vue.use(Vuex);
-const store = new Vuex.Store({
+export const store = new Vuex.Store({
   state: {
     count: 0,
   },
@@ -32,8 +32,8 @@ Vue.use(VueCreateDM, {
   viewDrawer,
   eleModal,
   eleDrawer,
-  store,
-  router,
+  // store,
+  // router,
   drawerGlobalHeader: globalHeader,
 });
 

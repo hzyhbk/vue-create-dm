@@ -14,6 +14,7 @@ import { getSlotPayload } from './getSlotPayload';
 import { createDrawerSlot, createModalSlot } from './createCreateSlot';
 import { locationMatcher } from './locationMatcher';
 import { setGlobalHeader } from './setGlobalHeader';
+import { modifyOptions } from './modifyOptions';
 
 export {
   createAntdDrawer,
@@ -27,6 +28,7 @@ export {
   createModalSlot,
   locationMatcher,
   setGlobalHeader,
+  modifyOptions,
 };
 
 export default {
@@ -44,26 +46,29 @@ export default {
       ...restOptions
     }
   ) {
-    const components = [
+    const modalComponents = [
       {
         component: antdModal,
         plugin: createAntdModal,
       },
       {
+        component: viewModal,
+        plugin: createViewModal,
+      },
+
+      {
+        component: eleModal,
+        plugin: createEleModal,
+      },
+    ];
+    const drawerComponents = [
+      {
         component: antdDrawer,
         plugin: createAntdDrawer,
       },
       {
-        component: viewModal,
-        plugin: createViewModal,
-      },
-      {
         component: viewDrawer,
         plugin: createViewDrawer,
-      },
-      {
-        component: eleModal,
-        plugin: createEleModal,
       },
       {
         component: eleDrawer,
@@ -71,11 +76,20 @@ export default {
       },
     ];
 
-    components.forEach((cpt) => {
+    modalComponents.forEach((cpt) => {
       if (cpt.component) {
         cpt.plugin.install(Vue, {
           component: cpt.component,
           globalHeader: modalGlobalHeader,
+          ...restOptions,
+        });
+      }
+    });
+    drawerComponents.forEach((cpt) => {
+      if (cpt.component) {
+        cpt.plugin.install(Vue, {
+          component: cpt.component,
+          globalHeader: drawerGlobalHeader,
           ...restOptions,
         });
       }

@@ -22,8 +22,14 @@
 </template>
 
 <script>
+import router from '../../router';
+import { store } from '../../main';
+
 export default {
   name: 'Match',
+  mounted() {
+    console.log(this.$router);
+  },
   methods: {
     createFrame() {
       this.$createAntdDrawer(
@@ -55,6 +61,7 @@ export default {
             width: '50%',
           },
         },
+        { router, store },
         '/foo'
       );
     },
