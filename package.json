@@ -9,6 +9,8 @@
     "index.d.ts"
   ],
   "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "build": "vue-cli-service build --target lib --inline-vue --name vue-create-dm ./src/index.js",
     "build:rollup": "rimraf dist && rollup --config rollup.config.js"
   },
@@ -39,7 +41,8 @@
     "rollup": "^2.23.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-uglify": "^6.0.4",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vuepress": "^1.5.3"
   },
   "eslintConfig": {
     "root": true,

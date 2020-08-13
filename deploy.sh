@@ -3,11 +3,23 @@
 # 当发生错误时中止脚本
 set -e
 
+# cd到example
+cd example
+
 # 构建
 npm run build
 
+#复制 dist 到 docs 下
+cp -Rf dist/* ../docs/.vuepress/public/example/
+
+# 执行完退出
+cd -
+
+# 构建
+npm run docs:build
+
 # cd 到构建输出的目录下
-cd dist
+cd docs/.vuepress/dist
 
 # 部署到自定义域域名
 # echo 'www.example.com' > CNAME
