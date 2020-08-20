@@ -11,6 +11,10 @@ module.exports = {
         text: 'Github',
         link: 'https://github.com/hzyhbk/vue-create-dm',
       },
+      {
+        text: 'ReactCreateDM',
+        link: 'https://hzyhbk.github.io/react-create-dm',
+      },
     ],
     sidebar: {
       '/guide/': [
