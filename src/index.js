@@ -15,6 +15,17 @@ import { createDrawerSlot, createModalSlot } from './createCreateSlot';
 import { locationMatcher } from './locationMatcher';
 import { setGlobalHeader } from './setGlobalHeader';
 import { modifyOptions } from './modifyOptions';
+import {
+  event,
+  VCDM_OPEN_DRAWER,
+  VCDM_OPEN_MODAL,
+  listen,
+  trigger,
+  listenOpenDrawerAction,
+  listenOpenModalAction,
+  triggerOpenDrawerAction,
+  triggerOpenModalAction,
+} from './event';
 
 export {
   createAntdDrawer,
@@ -29,6 +40,17 @@ export {
   locationMatcher,
   setGlobalHeader,
   modifyOptions,
+  createDrawer,
+  createModal,
+  VCDM_OPEN_DRAWER,
+  VCDM_OPEN_MODAL,
+  event,
+  listen,
+  trigger,
+  listenOpenDrawerAction,
+  listenOpenModalAction,
+  triggerOpenDrawerAction,
+  triggerOpenModalAction,
 };
 
 export default {

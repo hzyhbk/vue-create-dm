@@ -23,6 +23,11 @@ module.exports = {
           collapsable: false,
           children: ['', 'install', 'use', 'api'],
         },
+        {
+          title: '进阶',
+          collapsable: false,
+          children: ['micro'],
+        },
       ],
     },
   },
