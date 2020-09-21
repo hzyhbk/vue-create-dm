@@ -3,11 +3,17 @@
   "version": "0.0.20",
   "author": "hzyhbk",
   "main": "./dist/vue-create-dm.umd.min.js",
+  "description": "Use function to easily create Modal or Drawer component",
   "files": [
     "src",
     "dist/*.js",
     "index.d.ts"
   ],
+  "homepage": "https://hzyhbk.github.io/vue-create-dm/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hzyhbk/vue-create-dm"
+  },
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
