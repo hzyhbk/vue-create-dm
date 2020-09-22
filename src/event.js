@@ -1,6 +1,6 @@
-import Vue from 'vue';
+import mitt from 'mitt';
 
-export const event = new Vue();
+export const event = mitt();
 export const VCDM_OPEN_DRAWER = 'VCDM_OPEN_DRAWER';
 export const VCDM_OPEN_MODAL = 'VCDM_OPEN_MODAL';
 
@@ -33,7 +33,7 @@ function open(item, options, methodName) {
 }
 
 export function listen(type, microAppConfig, methodName) {
-  event.$on(type, (options) => {
+  event.on(type, (options) => {
     const { appName, path } = options;
     if (!appName) {
       console.warn(`请传入子应用名称`);
@@ -51,7 +51,7 @@ export function listen(type, microAppConfig, methodName) {
   });
 }
 export function trigger(...args) {
-  event.$emit(...args);
+  event.emit(...args);
 }
 
 // 监听全局打开抽屉事件

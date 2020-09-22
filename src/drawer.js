@@ -1,3 +1,4 @@
+import { createApp } from 'vue';
 import { createDrawerSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 import { locationMatcher } from './locationMatcher';
@@ -35,7 +36,7 @@ export function createDrawer(
   document.body.appendChild(el);
   let firstRender = true; // hack iview modal创建时没有动画的问题
 
-  const vn = new Vue({
+  const vn = createApp({
     data: {
       visible: false,
       slotVnMap: {},
@@ -108,14 +109,18 @@ export function createDrawer(
     },
     router,
     store,
-  }).$mount(el);
+  }).mount(el);
   return vn;
 }
 
 // 创建 antd drawer 的扩展方法
 export const createAntdDrawer = {
   install(Vue, originBaseOption) {
-    Vue.prototype.$createAntdDrawer = function(options, argObj, argLocation) {
+    Vue.config.globalProperties.$createAntdDrawer = function(
+      options,
+      argObj,
+      argLocation
+    ) {
       const { location, baseOption } = modifyOptions(
         originBaseOption,
         argObj,
@@ -144,7 +149,11 @@ export const createAntdDrawer = {
 // 创建 iview drawer 的扩展方法
 export const createViewDrawer = {
   install(Vue, originBaseOption) {
-    Vue.prototype.$createViewDrawer = function(options, argObj, argLocation) {
+    Vue.config.globalProperties.$createViewDrawer = function(
+      options,
+      argObj,
+      argLocation
+    ) {
       const { location, baseOption } = modifyOptions(
         originBaseOption,
         argObj,
@@ -173,7 +182,11 @@ export const createViewDrawer = {
 // 创建 ele drawer 的扩展方法
 export const createEleDrawer = {
   install(Vue, originBaseOption) {
-    Vue.prototype.$createEleDrawer = function(options, argObj, argLocation) {
+    Vue.config.globalProperties.$createEleDrawer = function(
+      options,
+      argObj,
+      argLocation
+    ) {
       const { location, baseOption } = modifyOptions(
         originBaseOption,
         argObj,

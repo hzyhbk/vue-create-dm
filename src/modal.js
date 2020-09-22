@@ -1,3 +1,4 @@
+import { createApp } from 'vue';
 import { createModalSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 import { locationMatcher } from './locationMatcher';
@@ -40,7 +41,7 @@ export function createModal(
   document.body.appendChild(el);
   let firstRender = true; // hack iview modal创建时没有动画的问题
 
-  const vn = new Vue({
+  const vn = createApp({
     data: {
       visible: false,
       confirmLoading: false,
@@ -132,13 +133,17 @@ export function createModal(
     },
     router,
     store,
-  }).$mount(el);
+  }).mount(el);
   return vn;
 }
 // 创建 antd modal 的扩展方法
 export const createAntdModal = {
   install(Vue, originBaseOption) {
-    Vue.prototype.$createAntdModal = function(options, argObj, argLocation) {
+    Vue.config.globalProperties.$createAntdModal = function(
+      options,
+      argObj,
+      argLocation
+    ) {
       const { location, baseOption } = modifyOptions(
         originBaseOption,
         argObj,
@@ -170,7 +175,11 @@ export const createAntdModal = {
 // 创建 iview modal 的扩展方法
 export const createViewModal = {
   install(Vue, originBaseOption) {
-    Vue.prototype.$createViewModal = function(options, argObj, argLocation) {
+    Vue.config.globalProperties.$createViewModal = function(
+      options,
+      argObj,
+      argLocation
+    ) {
       const { location, baseOption } = modifyOptions(
         originBaseOption,
         argObj,
@@ -202,7 +211,11 @@ export const createViewModal = {
 // 创建 ele modal 的扩展方法
 export const createEleModal = {
   install(Vue, originBaseOption) {
-    Vue.prototype.$createEleModal = function(options, argObj, argLocation) {
+    Vue.config.globalProperties.$createEleModal = function(
+      options,
+      argObj,
+      argLocation
+    ) {
       const { location, baseOption } = modifyOptions(
         originBaseOption,
         argObj,

@@ -68,6 +68,7 @@ export default {
       ...restOptions
     }
   ) {
+    console.log(123123, Vue);
     const modalComponents = [
       {
         component: antdModal,
