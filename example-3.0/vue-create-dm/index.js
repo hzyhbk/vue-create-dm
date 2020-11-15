@@ -68,6 +68,7 @@ export default {
       ...restOptions
     }
   ) {
+    console.log(123123, Vue);
     const modalComponents = [
       {
         component: antdModal,
@@ -118,3 +119,36 @@ export default {
     });
   },
 };
+
+// app.render = function(Component, props, el) {
+//   if (typeof el === 'string') {
+//     el = document.querySelector(el)
+//   }
+
+//   if (!el) {
+//     throw new Error('el not found')
+//   }
+
+//   if (props && {}.toString.call(props) !== '[object Object]') {
+//     throw Error('props must be an object')
+//   }
+
+//   const childTree = h(Component, props)
+//   childTree.appContext = app._context
+
+//   // Creating a wrapper element here is clunky and ideally wouldn't be necessary
+//   const div = document.createElement('div')
+//   el.appendChild(div)
+
+//   render(childTree, div)
+
+//   return childTree.component.proxy
+// }
+
+// app.unrender = function (vm) {
+//   const el = vm.$el.parentNode
+
+//   render(null, el)
+
+//   el.parentNode.removeChild(el)
+// }

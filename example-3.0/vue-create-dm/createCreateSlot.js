@@ -1,5 +1,7 @@
 export function createDrawerSlot(createElement, slotVnMap, onClose) {
   return (options, slot = 'default') => {
+    console.log(11111111, options);
+    debugger;
     const slotElement = createElement(options.template, {
       ...options.props,
       // on: {

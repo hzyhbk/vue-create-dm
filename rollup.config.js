@@ -9,6 +9,7 @@ module.exports = {
     format: 'umd',
     exports: 'named',
   },
+  external: ['vue'],
   plugins: [
     babel({ runtimeHelpers: true, exclude: 'node_modules/**' }),
     uglify(),

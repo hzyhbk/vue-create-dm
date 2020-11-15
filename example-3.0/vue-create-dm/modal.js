@@ -1,4 +1,4 @@
-import { defineComponent, h as createElement, render } from 'vue';
+import { createApp, defineComponent, h as createElement, render } from 'vue';
 import { createModalSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 import { locationMatcher } from './locationMatcher';
@@ -24,7 +24,6 @@ export function createModal(
   },
   options
 ) {
-  debugger;
   const myCreate = (...args) => {
     const childTree = createElement(...args);
     childTree.appContext = Vue._context;
@@ -106,20 +105,23 @@ export function createModal(
         handleClose,
         handleOk
       );
-      const children = [];
+      const children = {};
       // 如果传了内容
       if (content && content.template) {
-        children.push(createSlot(content));
+        children.default = () => createSlot(content);
+        // children.push(createSlot(content));
       }
       // 如果title传了组件，默认用这个
       if (title && title.template) {
         // 如果是插槽的话，就要加slot
-        children.push(createSlot(title, titleSlotName));
-        modalProps.title && delete modalProps.title;
+        children.title = () => createSlot(title, titleSlotName);
+        // children.push(createSlot(title, titleSlotName));
+        modalProps[titleSlotName] && delete modalProps.title;
       }
       // 如果title传了footer，用这个
       if (footer && footer.template) {
-        children.push(createSlot(footer, footerSlotName));
+        children[footerSlotName] = () => createSlot(footer, footerSlotName);
+        // children.push(createSlot(footer, footerSlotName));
       }
       return myCreate(
         Modal,

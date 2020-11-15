@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { defineComponent, h, render } from 'vue';
 import { createDrawerSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 import { locationMatcher } from './locationMatcher';
@@ -16,12 +16,17 @@ export function createDrawer(
     component: Drawer,
     titleSlotName = 'title', //原来组件提供的标题插槽名称
     visiblePropName = 'visible', //原来控制抽屉组件显隐的属性名称
-    closeCbName = 'close', // 原来组件的关闭回调事件名称
+    closeCbName = 'onClose', // 原来组件的关闭回调事件名称
     router,
     store,
   },
   options
 ) {
+  const createElement = (...args) => {
+    const childTree = h(...args);
+    childTree.appContext = Vue._context;
+    return childTree;
+  };
   const {
     title,
     content,
@@ -36,12 +41,14 @@ export function createDrawer(
   document.body.appendChild(el);
   let firstRender = true; // hack iview modal创建时没有动画的问题
 
-  const vn = createApp({
-    data: {
-      visible: false,
-      slotVnMap: {},
+  const MyComponent = defineComponent({
+    data() {
+      return {
+        visible: false,
+        slotVnMap: {},
+      };
     },
-    render(createElement) {
+    render() {
       const self = this;
       if (firstRender) {
         setTimeout(() => {
@@ -64,7 +71,7 @@ export function createDrawer(
         self.$data.visible = false;
         // 因为antd关闭动画是 0.3s 所以稍微晚点再销毁组件
         setTimeout(async () => {
-          self.$destroy();
+          // self.$destroy();
 
           try {
             // 手动删除节点
@@ -79,38 +86,40 @@ export function createDrawer(
         self.$data.slotVnMap,
         handleClose
       );
-      const children = [];
+      const children = {};
       // 如果传了内容
       if (content && content.template) {
-        children.push(createSlot(content));
+        children.default = () => createSlot(content);
+        // children.push(createSlot(content));
       }
       // 如果title传了组件，默认用这个
       if (title && title.template) {
         // 如果是插槽的话，就要加slot
-        children.push(createSlot(title, titleSlotName));
+        children[titleSlotName] = () => createSlot(title, titleSlotName);
+        // children.push(createSlot(title, titleSlotName));
         drawerProps.title && delete drawerProps.title;
       }
       return createElement(
         Drawer,
         {
-          props: {
-            ...drawerProps,
-            [visiblePropName]: self.$data.visible,
-          },
-          on: {
-            [closeCbName]: handleClose,
-          },
-          nativeOn: {
-            click: handleNativeClick,
-          },
+          // props: {
+          ...drawerProps,
+          [visiblePropName]: self.$data.visible,
+          // },
+          // on: {
+          [closeCbName]: handleClose,
+          // },
+          // nativeOn: {
+          //   click: handleNativeClick,
+          // },
         },
         children
       );
     },
-    router,
-    store,
-  }).mount(el);
-  return vn;
+  });
+  const childTree = createElement(MyComponent);
+  render(childTree, el);
+  return childTree;
 }
 
 // 创建 antd drawer 的扩展方法
@@ -139,7 +148,7 @@ export const createAntdDrawer = {
           ...baseOption,
           titleSlotName: 'title',
           visiblePropName: 'visible',
-          closeCbName: 'close',
+          closeCbName: 'onClose',
         },
         optionsWithGH
       );

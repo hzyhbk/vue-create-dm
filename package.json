@@ -15,6 +15,7 @@
     "url": "https://github.com/hzyhbk/vue-create-dm"
   },
   "scripts": {
+    "dev": "rollup --config rollup.config.js --watch",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "build": "vue-cli-service build --target lib --inline-vue --name vue-create-dm ./src/index.js",
