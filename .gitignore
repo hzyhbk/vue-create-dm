@@ -13,6 +13,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+.yalc
+.yalc.lock
 
 # Editor directories and files
 .idea

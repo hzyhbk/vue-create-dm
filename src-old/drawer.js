@@ -1,57 +1,51 @@
-import { createApp, defineComponent, h as createElement, render } from 'vue';
-import { createModalSlot } from './createCreateSlot';
+import { defineComponent, h, render } from 'vue';
+import { createDrawerSlot } from './createCreateSlot';
 import { getSlotPayload } from './getSlotPayload';
 import { locationMatcher } from './locationMatcher';
 import { setGlobalHeader } from './setGlobalHeader';
 import { modifyOptions } from './modifyOptions';
+
 /**
- * modalProps 就是组件库的 modal 支持的props
- * title、content、footer 都是对象，其中 template 属性代表组件，其他属性同 vue 的原生属性 https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1
+ * drawerProps 就是组件库的 drawer 支持的props
+ * title 和 content 都是对象，其中 template 属性代表组件，其他属性同 vue 的原生属性 https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1
  */
-// 创建弹框的主方法
-export function createModal(
+// 创建抽屉的主方法
+export function createDrawer(
   Vue,
   {
-    component: Modal,
+    component: Drawer,
     titleSlotName = 'title', //原来组件提供的标题插槽名称
-    footerSlotName = 'footer', //原来组件提供的footer插槽名称
     visiblePropName = 'visible', //原来控制抽屉组件显隐的属性名称
-    btnLoadingPropName = 'confirmLoading',
-    cancelCbName = 'onCancel', // 原来组件的关闭回调事件名称
-    okCbName = 'onOk', // 原来组件的确定回调事件名称
+    closeCbName = 'onClose', // 原来组件的关闭回调事件名称
     router,
-    store,
+    store
   },
   options
 ) {
-  const myCreate = (...args) => {
-    const childTree = createElement(...args);
+  const createElement = (...args) => {
+    const childTree = h(...args);
     childTree.appContext = Vue._context;
     return childTree;
   };
-
   const {
     title,
     content,
-    footer,
-    modalProps,
+    drawerProps,
     beforeClose,
     afterClose,
-    onOk,
-    payloadSlot,
+    payloadSlot, // 'default', 'title', false, true
     onClick,
-    // 是否阻止整个modal组件的点击事件冒泡
-    stopPropagation,
+    stopPropagation
   } = options;
   const el = document.createElement('div');
   document.body.appendChild(el);
   let firstRender = true; // hack iview modal创建时没有动画的问题
+
   const MyComponent = defineComponent({
     data() {
       return {
         visible: false,
-        confirmLoading: false,
-        slotVnMap: {},
+        slotVnMap: {}
       };
     },
     render() {
@@ -62,48 +56,35 @@ export function createModal(
           firstRender = false;
         }, 0);
       }
-      const handleNativeClick = (event) => {
+      const handleNativeClick = event => {
         if (stopPropagation) {
           event.stopPropagation();
         }
         onClick && onClick(event);
       };
-      const handleClose = async (payload) => {
-        beforeClose && (await beforeClose(payload));
-        self.$data.visible = false;
-        setTimeout(async () => {
-          // self.$destroy();
-
-          try {
-            // 手动销毁dom
-            document.body.removeChild(self.$el);
-          } catch (e) {}
-
-          afterClose && (await afterClose(payload));
-        }, 400);
-      };
-      // 直接关闭不传slotPayload，通过ok关闭可以取到
-      const handleOk = async (payload) => {
+      const handleClose = async function(payload) {
         const slotPayload = await getSlotPayload(
           self.$data.slotVnMap,
           payloadSlot
         );
-        self.$data.confirmLoading = true;
-        // 如果返回false表示不关闭，其他情况关闭
-        const res = onOk && (await onOk({ payload, slotPayload }));
-        self.$data.confirmLoading = false;
-        if (res === false) {
-        } else {
-          await handleClose({ payload, slotPayload });
-        }
-      };
+        beforeClose && (await beforeClose({ payload, slotPayload }));
+        self.$data.visible = false;
+        // 因为antd关闭动画是 0.3s 所以稍微晚点再销毁组件
+        setTimeout(async () => {
+          // self.$destroy();
 
-      const createSlot = createModalSlot(
-        myCreate,
+          try {
+            // 手动删除节点
+            document.body.removeChild(self.$el);
+          } catch (e) {}
+
+          afterClose && (await afterClose({ payload, slotPayload }));
+        }, 400);
+      };
+      const createSlot = createDrawerSlot(
+        createElement,
         self.$data.slotVnMap,
-        self.$data.confirmLoading,
-        handleClose,
-        handleOk
+        handleClose
       );
       const children = {};
       // 如果传了内容
@@ -114,44 +95,37 @@ export function createModal(
       // 如果title传了组件，默认用这个
       if (title && title.template) {
         // 如果是插槽的话，就要加slot
-        children.title = () => createSlot(title, titleSlotName);
+        children[titleSlotName] = () => createSlot(title, titleSlotName);
         // children.push(createSlot(title, titleSlotName));
-        modalProps[titleSlotName] && delete modalProps.title;
+        drawerProps.title && delete drawerProps.title;
       }
-      // 如果title传了footer，用这个
-      if (footer && footer.template) {
-        children[footerSlotName] = () => createSlot(footer, footerSlotName);
-        // children.push(createSlot(footer, footerSlotName));
-      }
-      return myCreate(
-        Modal,
+      return createElement(
+        Drawer,
         {
           // props: {
-          ...modalProps,
-          [btnLoadingPropName]: self.$data.confirmLoading,
+          ...drawerProps,
           [visiblePropName]: self.$data.visible,
           // },
           // on: {
-          [cancelCbName]: handleClose,
-          [okCbName]: handleOk,
+          [closeCbName]: handleClose
           // },
           // nativeOn: {
-          // click: handleNativeClick,
+          //   click: handleNativeClick,
           // },
         },
         children
       );
-    },
+    }
   });
-
-  const childTree = myCreate(MyComponent);
+  const childTree = createElement(MyComponent);
   render(childTree, el);
   return childTree;
 }
-// 创建 antd modal 的扩展方法
-export const createAntdModal = {
+
+// 创建 antd drawer 的扩展方法
+export const createAntdDrawer = {
   install(Vue, originBaseOption) {
-    Vue.config.globalProperties.$createAntdModal = function(
+    Vue.config.globalProperties.$createAntdDrawer = function(
       options,
       argObj,
       argLocation
@@ -168,26 +142,23 @@ export const createAntdModal = {
         options
       );
       const optionsWithGH = setGlobalHeader(baseOption, newOptions);
-      return createModal(
+      return createDrawer(
         Vue,
         {
           ...baseOption,
           titleSlotName: 'title',
-          footerSlotName: 'footer',
           visiblePropName: 'visible',
-          btnLoadingPropName: 'confirmLoading',
-          cancelCbName: 'onCancel',
-          okCbName: 'onOk',
+          closeCbName: 'onClose'
         },
         optionsWithGH
       );
     };
-  },
+  }
 };
-// 创建 iview modal 的扩展方法
-export const createViewModal = {
+// 创建 iview drawer 的扩展方法
+export const createViewDrawer = {
   install(Vue, originBaseOption) {
-    Vue.config.globalProperties.$createViewModal = function(
+    Vue.config.globalProperties.$createViewDrawer = function(
       options,
       argObj,
       argLocation
@@ -204,26 +175,23 @@ export const createViewModal = {
         options
       );
       const optionsWithGH = setGlobalHeader(baseOption, newOptions);
-      return createModal(
+      return createDrawer(
         Vue,
         {
           ...baseOption,
           titleSlotName: 'header',
-          footerSlotName: 'footer',
           visiblePropName: 'value',
-          btnLoadingPropName: 'loading',
-          cancelCbName: 'on-cancel',
-          okCbName: 'on-ok',
+          closeCbName: 'on-close'
         },
         optionsWithGH
       );
     };
-  },
+  }
 };
-// 创建 ele modal 的扩展方法
-export const createEleModal = {
+// 创建 ele drawer 的扩展方法
+export const createEleDrawer = {
   install(Vue, originBaseOption) {
-    Vue.config.globalProperties.$createEleModal = function(
+    Vue.config.globalProperties.$createEleDrawer = function(
       options,
       argObj,
       argLocation
@@ -240,19 +208,16 @@ export const createEleModal = {
         options
       );
       const optionsWithGH = setGlobalHeader(baseOption, newOptions);
-      return createModal(
+      return createDrawer(
         Vue,
         {
           ...baseOption,
           titleSlotName: 'title',
-          footerSlotName: 'footer',
           visiblePropName: 'visible',
-          btnLoadingPropName: 'loading',
-          cancelCbName: 'close',
-          okCbName: 'ok',
+          closeCbName: 'close'
         },
         optionsWithGH
       );
     };
-  },
+  }
 };

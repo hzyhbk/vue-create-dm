@@ -1,13 +1,14 @@
 {
   "name": "vue-create-dm",
-  "version": "0.0.20",
+  "version": "1.0.0-alpha.0",
   "author": "hzyhbk",
-  "main": "./dist/vue-create-dm.umd.min.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/esm/index.d.ts",
   "description": "Use function to easily create Modal or Drawer component",
   "files": [
     "src",
-    "dist/*.js",
-    "index.d.ts"
+    "dist"
   ],
   "homepage": "https://hzyhbk.github.io/vue-create-dm/",
   "repository": {
@@ -18,10 +19,8 @@
     "dev": "rollup --config rollup.config.js --watch",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "build": "vue-cli-service build --target lib --inline-vue --name vue-create-dm ./src/index.js",
-    "build:rollup": "rimraf dist && rollup --config rollup.config.js"
+    "build": "rimraf dist && rollup --config rollup.config.js"
   },
-  "typings": "index.d.ts",
   "keywords": [
     "ant",
     "design",
@@ -35,41 +34,23 @@
     "viewui"
   ],
   "dependencies": {
-    "core-js": "^3.6.5",
-    "mitt": "^2.1.0",
-    "vue": "^3.0.0"
+    "core-js": "^3.6.5"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.4.0",
-    "@vue/cli-plugin-eslint": "^4.4.0",
-    "@vue/cli-service": "^4.4.0",
-    "@vue/compiler-sfc": "^3.0.0",
+    "@rollup/plugin-node-resolve": "^11.1.0",
+    "@rollup/plugin-typescript": "^8.1.1",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "rollup": "^2.23.0",
     "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.29.0",
     "rollup-plugin-uglify": "^6.0.4",
-    "vue-template-compiler": "^2.6.11",
+    "typescript": "^4.1.3",
+    "vue": "^3.0.5",
     "vuepress": "^1.5.3"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {
-      "no-unused-vars": "off",
-      "no-empty": "off",
-      "no-undef": "off"
-    }
   },
   "browserslist": [
     "> 1%",
